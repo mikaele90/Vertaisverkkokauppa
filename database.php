@@ -3,10 +3,8 @@
 server with default setting (user 'root' with no password) */
 
 define('DB_SERVER', 'localhost');
-
 define('DB_USERNAME', 'kayttaja');
 define('DB_PASSWORD', 'dbpass');
-
 define('DB_NAME', 'verkkokauppa');
 
 /* Attempt to connect to MySQL database */

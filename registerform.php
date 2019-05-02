@@ -14,11 +14,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $username_err = "Please enter a username.";
     } else{
         // Prepare a select statement
-<<<<<<< HEAD
-        $sql = "SELECT UserId FROM userdb WHERE username = ?";
-=======
+
         $sql = "SELECT UserId FROM userDB WHERE UserName = ?";
->>>>>>> 3debc645e669fa9dd8d387faba5416eb9c0ebbdd
 
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
