@@ -3,8 +3,19 @@
 require_once "database.php";
 
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = $first_name = $last_name = $email = "";
-$username_err = $password_err = $confirm_password_err = $first_name_err = $last_name_err = $email_err ="";
+$username = $password = $confirm_password = $first_name = $last_name = $email = $telephone_number = $street_address = $zip_code = "";
+$username_err = $password_err = $confirm_password_err = $first_name_err = $last_name_err = $email_err = $telephone_number_err = $street_address_err = $zip_code_err ="";
+
+function validate_phone_number($phone)
+{
+    $filtered_phone_number = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
+    $phone_to_check = str_replace("-", "", $filtered_phone_number);
+    if (strlen($phone_to_check) < 10 || strlen($phone_to_check) > 14) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 
 // Processing form data when form is submitted
@@ -48,7 +59,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["password"]))){
         $password_err = "Please enter a password.";
     } elseif(strlen(trim($_POST["password"])) < 6){
-        $password_err = "Password must have atleast 6 characters.";
+        $password_err = "Password must have at least 6 characters.";
     } else{
         $password = trim($_POST["password"]);
     }
@@ -63,25 +74,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
 
-    // Validate firstname
+    // Validate first name
     if(empty(trim($_POST["first_name"]))){
         $first_name_err = "Please confirm first name.";
     } elseif(strlen(trim($_POST["first_name"])) < 2) {
-        $first_name_err = "First name must have atleast 2 characters.";
+        $first_name_err = "First name must have at least 2 characters.";
     } else{
         $first_name = trim($_POST["first_name"]);
     }
 
-    // Validate lastname
+    // Validate last name
     if(empty(trim($_POST["last_name"]))){
         $last_name_err = "Please confirm last name.";
     } elseif(strlen(trim($_POST["last_name"])) < 2) {
-        $last_name_err = "Last name must have atleast 2 characters.";
+        $last_name_err = "Last name must have at least 2 characters.";
     } else{
         $last_name = trim($_POST["last_name"]);
     }
 
-    // Validate lastname
+    // Validate email address
     if(empty(trim($_POST["email"]))){
         $email_err = "Please confirm email.";
     } elseif(!filter_var(trim($_POST["email"]), FILTER_VALIDATE_EMAIL)) {
@@ -90,18 +101,58 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $email = trim($_POST["email"]);
     }
 
+    // Validate telephone number
+    if(empty(trim($_POST["telephone_number"]))){
+        $telephone_number_err = "Please confirm telephone number.";
+    } elseif(validate_phone_number(trim($_POST["telephone_number"])) == false) {
+        $telephone_number_err = "Telephone number is not valid";
+    } else{
+        $telephone_number = trim($_POST["telephone_number"]);
+    }
+
+    // Validate street address
+    if(empty(trim($_POST["street_address"]))){
+        $street_address_err = "Please confirm street address.";
+    } elseif(strlen(trim($_POST["street_address"])) < 8) {
+        $street_address_err = "Street address must have at least 8 characters.";
+    } else{
+        $street_address = trim($_POST["street_address"]);
+    }
+
+    // Validate ZIP code
+    if(empty(trim($_POST["zip_code"]))){
+        $zip_code_err = "Please confirm ZIP code.";
+    } elseif(strlen(trim($_POST["zip_code"])) < 5) {
+        $zip_code_err = "ZIP code must have at least 5 characters.";
+    } else{
+        $zip_code = trim($_POST["zip_code"]);
+    }
 
 
     // Check input errors before inserting in database
-    if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($first_name_err) && empty($last_name_err)
-        && empty($email_err)){
+    if(empty($username_err) &&
+        empty($password_err) &&
+        empty($confirm_password_err) &&
+        empty($first_name_err) &&
+        empty($last_name_err) &&
+        empty($email_err) &&
+        empty($telephone_number_err) &&
+        empty($street_address_err) &&
+        empty($zip_code_err)){
 
         // Prepare an insert statement
-        $sql = "INSERT INTO userDB (UserName, UserPassword, FirstName, LastName, Email) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO userDB (UserName, UserPassword, FirstName, LastName, Email, TelNum, StreetAddress, Zipcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sssss", $param_username, $param_password, $param_first_name, $param_last_name, $param_email);
+            mysqli_stmt_bind_param($stmt, "ssssssss",
+                $param_username,
+                $param_password,
+                $param_first_name,
+                $param_last_name,
+                $param_email,
+                $param_telephone_number,
+                $param_street_address);
 
             // Set parameters
             $param_username = $username;
@@ -109,6 +160,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_first_name = $first_name;
             $param_last_name = $last_name;
             $param_email = $email;
+            $param_telephone_number = $telephone_number;
+            $param_street_address = $street_address;
+            $param_zip_code = $zip_code;
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
@@ -169,9 +223,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <span class="help-block"><?php echo $last_name_err; ?></span>
         </div>
         <div class="form-group <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
-            <label>Last name</label>
+            <label>Email address</label>
             <input type="email" name="email" class="form-control" value="<?php echo $email; ?>">
             <span class="help-block"><?php echo $email_err; ?></span>
+        </div>
+        <div class="form-group <?php echo (!empty($telephone_number_err)) ? 'has-error' : ''; ?>">
+            <label>Telephone number</label>
+            <input type="text" name="telephone_number" class="form-control" value="<?php echo $telephone_number; ?>">
+            <span class="help-block"><?php echo $telephone_number_err; ?></span>
+        </div>
+        <div class="form-group <?php echo (!empty($street_address_err)) ? 'has-error' : ''; ?>">
+            <label>Street address (it is at your own responsibility that the address is correct)</label>
+            <input type="text" name="street_address" class="form-control" value="<?php echo $street_address; ?>">
+            <span class="help-block"><?php echo $street_address_err; ?></span>
+        </div>
+        <div class="form-group <?php echo (!empty($zip_code_err)) ? 'has-error' : ''; ?>">
+            <label>ZIP code </label>
+            <input type="text" name="zip_code" class="form-control" value="<?php echo $zip_code; ?>">
+            <span class="help-block"><?php echo $zip_code_err; ?></span>
         </div>
         <div class="form-group">
             <input type="submit" class="btn btn-primary" value="Submit">
