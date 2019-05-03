@@ -1,4 +1,6 @@
 
+
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:24px 0;">
     <a class="navbar-brand" href="index.php">Vertaisverkkokauppa</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
@@ -17,7 +19,7 @@
                 <a class="nav-link disabled" href="javascript:void(0)">Browse</a>
             </li>
         </ul>
-        <form action="" method="post">
+        <form action="search.php" method="post">
             <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search">
             <button class="btn btn-success my-2 my-sm-0" type="submit" name="submit" value="Search">Search</button>
         </form>

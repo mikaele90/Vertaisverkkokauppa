@@ -1,11 +1,10 @@
 
 <?php
 require_once "database.php";
-
+require_once "nav-bar.php";
 
 $search_value = "";
 $search_value_err = "";
-
 
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -49,12 +48,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     mysqli_close($link);
 }
 
-
-
-
 ?>
 
-<form action="" method="post">
-    <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search">
-    <button class="btn btn-success my-2 my-sm-0" type="submit" name="submit" value="Search">Search</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+    <style type="text/css">
+        body{ font: 14px sans-serif; }
+        .wrapper{ width: 350px; padding: 20px; align-content: center}
+    </style>
+</head>
+
+</html>
