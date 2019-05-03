@@ -3,8 +3,8 @@
 require_once "database.php";
 
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = $first_name = $last_name = $email = $telephone_number = $street_address = $zip_code = "";
-$username_err = $password_err = $confirm_password_err = $first_name_err = $last_name_err = $email_err = $telephone_number_err = $street_address_err = $zip_code_err ="";
+$username = $password = $confirm_password = $first_name = $last_name = $email = $telephone_number = $street_address = $zip_code = $city = $country = "";
+$username_err = $password_err = $confirm_password_err = $first_name_err = $last_name_err = $email_err = $telephone_number_err = $street_address_err = $zip_code_err = $city_err = $country_err ="";
 
 function validate_phone_number($phone)
 {
@@ -59,7 +59,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["password"]))){
         $password_err = "Please enter a password.";
     } elseif(strlen(trim($_POST["password"])) < 6){
-        $password_err = "Password must have at least 6 characters.";
+        $password_err = "Password must have at least six characters.";
     } else{
         $password = trim($_POST["password"]);
     }
@@ -78,7 +78,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["first_name"]))){
         $first_name_err = "Please confirm first name.";
     } elseif(strlen(trim($_POST["first_name"])) < 2) {
-        $first_name_err = "First name must have at least 2 characters.";
+        $first_name_err = "First name must have at least two characters.";
     } else{
         $first_name = trim($_POST["first_name"]);
     }
@@ -87,7 +87,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["last_name"]))){
         $last_name_err = "Please confirm last name.";
     } elseif(strlen(trim($_POST["last_name"])) < 2) {
-        $last_name_err = "Last name must have at least 2 characters.";
+        $last_name_err = "Last name must have at least two characters.";
     } else{
         $last_name = trim($_POST["last_name"]);
     }
@@ -114,7 +114,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["street_address"]))){
         $street_address_err = "Please confirm street address.";
     } elseif(strlen(trim($_POST["street_address"])) < 8) {
-        $street_address_err = "Street address must have at least 8 characters.";
+        $street_address_err = "Street address must have at least eight characters.";
     } else{
         $street_address = trim($_POST["street_address"]);
     }
@@ -123,9 +123,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["zip_code"]))){
         $zip_code_err = "Please confirm ZIP code.";
     } elseif(strlen(trim($_POST["zip_code"])) < 5) {
-        $zip_code_err = "ZIP code must have at least 5 characters.";
+        $zip_code_err = "ZIP code must have at least five characters.";
     } else{
         $zip_code = trim($_POST["zip_code"]);
+    }
+
+    // Validate city
+    if(empty(trim($_POST["city"]))){
+        $city_err = "Please confirm city name.";
+    } elseif(strlen(trim($_POST["city"])) < 1) {
+        $city_err = "City name must have at least one characters.";
+    } else{
+        $city = trim($_POST["city"]);
+    }
+
+    // Validate country
+    if(empty(trim($_POST["country"]))){
+        $country_err = "Please confirm country name.";
+    } elseif(strlen(trim($_POST["country"])) < 1) {
+        $country_err = "Country name must have at least one characters.";
+    } else{
+        $country = trim($_POST["country"]);
     }
 
 
@@ -138,21 +156,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         empty($email_err) &&
         empty($telephone_number_err) &&
         empty($street_address_err) &&
-        empty($zip_code_err)){
+        empty($zip_code_err) &&
+        empty($city_err) &&
+        empty($country_err)){
 
         // Prepare an insert statement
-        $sql = "INSERT INTO userDB (UserName, UserPassword, FirstName, LastName, Email, TelNum, StreetAddress, Zipcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO userDB (UserName, UserPassword, FirstName, LastName, Email, TelNum, StreetAddress, Zipcode, City, Country) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ssssssss",
+            mysqli_stmt_bind_param($stmt, "ssssssssss",
                 $param_username,
                 $param_password,
                 $param_first_name,
                 $param_last_name,
                 $param_email,
                 $param_telephone_number,
-                $param_street_address);
+                $param_street_address,
+                $param_zip_code,
+                $param_city,
+                $param_country);
 
             // Set parameters
             $param_username = $username;
@@ -163,6 +186,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_telephone_number = $telephone_number;
             $param_street_address = $street_address;
             $param_zip_code = $zip_code;
+            $param_city = $city;
+            $param_country = $country;
+
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
@@ -186,13 +212,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <head>
     <meta charset="UTF-8">
     <title>Sign Up</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style type="text/css">
         body{ font: 14px sans-serif; }
         .wrapper{ width: 350px; padding: 20px; }
     </style>
 </head>
 <body>
+
+<?php require_once 'nav-bar.php' ?>
+
 <div class="wrapper">
     <h2>Sign Up</h2>
     <p>Please fill this form to create an account.</p>
@@ -241,6 +270,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <label>ZIP code </label>
             <input type="text" name="zip_code" class="form-control" value="<?php echo $zip_code; ?>">
             <span class="help-block"><?php echo $zip_code_err; ?></span>
+        </div>
+        <div class="form-group <?php echo (!empty($city_err)) ? 'has-error' : ''; ?>">
+            <label>City </label>
+            <input type="text" name="city" class="form-control" value="<?php echo $city; ?>">
+            <span class="help-block"><?php echo $city_err; ?></span>
+        </div>
+        <div class="form-group <?php echo (!empty($country_err)) ? 'has-error' : ''; ?>">
+            <label>Country </label>
+            <input type="text" name="country" class="form-control" value="<?php echo $country; ?>">
+            <span class="help-block"><?php echo $country_err; ?></span>
         </div>
         <div class="form-group">
             <input type="submit" class="btn btn-primary" value="Submit">
