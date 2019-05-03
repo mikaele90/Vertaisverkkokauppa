@@ -30,9 +30,21 @@ CREATE TABLE ItemDB
     ItemDescription VARCHAR(100),
     ItemSubCategory VARCHAR(100),
     ImageLink VARCHAR(100),
-    IsSold BOOLEAN,
-    BuyerId INT,
+    Availability BOOLEAN DEFAULT '1',
+    PRIMARY KEY (ItemId)
+);
+
+CREATE TABLE OrderDB
+(
+    OrderId INT NOT NULL AUTO_INCREMENT,
+    Quantity INT,
+    ItemId INT,
     UserId INT,
-    PRIMARY KEY (ItemId),
+    PRIMARY KEY (OrderId),
+    FOREIGN KEY (ItemId) REFERENCES ItemDB(ItemId),
     FOREIGN KEY (UserId) REFERENCES UserDB(UserId)
 );
+
+INSERT INTO `verkkokauppa`.`itemdb` (`ItemId`, `ItemName`, `ItemCategory`, `ItemPrice`, `ItemDescription`, `ItemSubCategory`, `Availability`) VALUES ('1', 'Testituote', 'Testituottet', '2', 'Tämä on testituote', 'Testituotteet alikategoria', '1');
+INSERT INTO `verkkokauppa`.`itemdb` (`ItemId`, `ItemName`, `ItemCategory`, `ItemPrice`, `ItemDescription`, `ItemSubCategory`, `Availability`) VALUES ('2', 'Testituote2', 'Testituottet', '1.5', 'Tämä on toinen testituote', 'Testituotteet alikategoria2', '1');
+INSERT INTO `verkkokauppa`.`itemdb` (`ItemId`, `ItemName`, `ItemCategory`, `ItemPrice`, `ItemDescription`, `ItemSubCategory`, `Availability`) VALUES ('3', 'Testituote3', 'Testituottet2', '1', 'Tämä on kolmas testituote', 'Testituotteet2 alikategoria', '1');
