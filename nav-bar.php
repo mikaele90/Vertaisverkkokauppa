@@ -17,9 +17,9 @@
                 <a class="nav-link disabled" href="javascript:void(0)">Browse</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search">
-            <button class="btn btn-success my-2 my-sm-0" type="button">Search</button>
+        <form action="" method="post">
+            <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search">
+            <button class="btn btn-success my-2 my-sm-0" type="submit" name="submit" value="Search">Search</button>
         </form>
     </div>
 </nav>
