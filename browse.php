@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Vertaisverkkokauppa :: Browse ::</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" type="image/x-icon" href="images/color-star-3-152-217610.png">
-
+    <style type="text/css">
+        body{ font: 14px sans-serif; }
+        .wrapper{ width: 350px; padding: 20px; align-content: center}
+    </style>
 </head>
 <body>
 <?php
@@ -64,9 +67,10 @@ if($stmt = mysqli_prepare($link, $sql)){
             productNode.setAttribute('class', 'card');
             productNode.innerHTML =
                 '<h1 class="card">' + product.ItemName + '</h1>' +
+                '<img src="images/products/' + product.ImageLink + '.png" alt="Denim Jeans" style="width:100%">' +
                 '<p class="price">' + JSON.stringify(product.ItemPrice) + '€</p>' +
                 '<p class="card">' + product.ItemDescription + '</p>' +
-                '<p><button class="card">Add to Cart</button></p>' +
+                '<p><button class="card">Add to Cart</button></p>'
             productsDiv.appendChild(productNode);
         }
     }

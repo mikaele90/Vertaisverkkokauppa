@@ -29,7 +29,7 @@ CREATE TABLE ItemDB
     ItemPrice FLOAT,
     ItemDescription VARCHAR(100),
     ItemSubCategory VARCHAR(100),
-    ImageLink VARCHAR(100),
+    ImageLink VARCHAR(100) DEFAULT 'default',
     Availability BOOLEAN DEFAULT '1',
     PRIMARY KEY (ItemId)
 );
@@ -45,9 +45,9 @@ CREATE TABLE OrderDB
     FOREIGN KEY (UserId) REFERENCES UserDB(UserId)
 );
 
-INSERT INTO `verkkokauppa`.`itemdb` (`ItemId`, `ItemName`, `ItemCategory`, `ItemPrice`, `ItemDescription`, `ItemSubCategory`, `Availability`) VALUES ('1', 'Testituote', 'Testituottet', '2.00', 'Tämä on testituote', 'Testituotteet alikategoria', '1');
-INSERT INTO `verkkokauppa`.`itemdb` (`ItemId`, `ItemName`, `ItemCategory`, `ItemPrice`, `ItemDescription`, `ItemSubCategory`, `Availability`) VALUES ('2', 'Testituote2', 'Testituottet', '1.50', 'Tämä on toinen testituote', 'Testituotteet alikategoria2', '1');
-INSERT INTO `verkkokauppa`.`itemdb` (`ItemId`, `ItemName`, `ItemCategory`, `ItemPrice`, `ItemDescription`, `ItemSubCategory`, `Availability`) VALUES ('3', 'Testituote3', 'Testituottet2', '1.00', 'Tämä on kolmas testituote', 'Testituotteet2 alikategoria', '1');
-INSERT INTO `verkkokauppa`.`itemdb` (`ItemId`, `ItemName`, `ItemCategory`, `ItemPrice`, `ItemDescription`, `ItemSubCategory`, `Availability`) VALUES ('4', 'Testituote4', 'Testituottet2', '1.25', 'Tämä on neljäs testituote', 'Testituotteet2 alikategoria', '1');
-INSERT INTO `verkkokauppa`.`itemdb` (`ItemId`, `ItemName`, `ItemCategory`, `ItemPrice`, `ItemDescription`, `ItemSubCategory`, `Availability`) VALUES ('5', 'Testituote5', 'Testituottet', '5.45', 'Tämä on viides testituote', 'Testituotteet alikategoria', '1');
-INSERT INTO `verkkokauppa`.`itemdb` (`ItemId`, `ItemName`, `ItemCategory`, `ItemPrice`, `ItemDescription`, `ItemSubCategory`, `Availability`) VALUES ('6', 'Testituote6', 'Testituottet', '3.32', 'Tämä on kuudes testituote', 'Testituotteet alikategoria', '1');
+INSERT INTO `verkkokauppa`.`itemdb` (`ItemId`, `ItemName`, `ItemCategory`, `ItemPrice`, `ItemDescription`, `ItemSubCategory`, `ImageLink`, `Availability`) VALUES ('1', 'Testituote', 'Testituottet', '2.00', 'Tämä on testituote', 'Testituotteet alikategoria', default, '1');
+INSERT INTO `verkkokauppa`.`itemdb` (`ItemId`, `ItemName`, `ItemCategory`, `ItemPrice`, `ItemDescription`, `ItemSubCategory`, `ImageLink`, `Availability`) VALUES ('2', 'Testituote2', 'Testituottet', '1.50', 'Tämä on toinen testituote', 'Testituotteet alikategoria2', default, '1');
+INSERT INTO `verkkokauppa`.`itemdb` (`ItemId`, `ItemName`, `ItemCategory`, `ItemPrice`, `ItemDescription`, `ItemSubCategory`, `ImageLink`, `Availability`) VALUES ('3', 'Testituote3', 'Testituottet2', '1.00', 'Tämä on kolmas testituote', 'Testituotteet2 alikategoria', default, '1');
+INSERT INTO `verkkokauppa`.`itemdb` (`ItemId`, `ItemName`, `ItemCategory`, `ItemPrice`, `ItemDescription`, `ItemSubCategory`, `ImageLink`, `Availability`) VALUES ('4', 'Testituote4', 'Testituottet2', '1.25', 'Tämä on neljäs testituote', 'Testituotteet2 alikategoria', default, '1');
+INSERT INTO `verkkokauppa`.`itemdb` (`ItemId`, `ItemName`, `ItemCategory`, `ItemPrice`, `ItemDescription`, `ItemSubCategory`, `ImageLink`, `Availability`) VALUES ('5', 'Testituote5', 'Testituottet', '5.45', 'Tämä on viides testituote', 'Testituotteet alikategoria', default, '1');
+INSERT INTO `verkkokauppa`.`itemdb` (`ItemId`, `ItemName`, `ItemCategory`, `ItemPrice`, `ItemDescription`, `ItemSubCategory`, `ImageLink`, `Availability`) VALUES ('6', 'Testituote6', 'Testituottet', '3.32', 'Tämä on kuudes testituote', 'Testituotteet alikategoria', default, '1');
