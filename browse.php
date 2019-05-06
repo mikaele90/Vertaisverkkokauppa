@@ -16,6 +16,7 @@ require_once 'nav-bar.php';
 $sql="SELECT * FROM itemDB";
 $productArray = Array();
 
+
 if($stmt = mysqli_prepare($link, $sql)){
 
     if(mysqli_stmt_execute($stmt)){
@@ -25,11 +26,12 @@ if($stmt = mysqli_prepare($link, $sql)){
         $result = mysqli_stmt_get_result($stmt);
         $num_rows = mysqli_num_rows($result);
         $jsonResult = json_encode($result);
-        echo "lol";
+
         if($num_rows == 0){
             echo $browse_value_err = "No results to display.";
         } else{
             while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                echo $row["ItemDescription"];
                 array_push($productArray, $row);
             }
             mysqli_free_result($result);
@@ -38,6 +40,7 @@ if($stmt = mysqli_prepare($link, $sql)){
         echo "Oops! Something went wrong. Please try again later.";
     }
 }
+
 ?>
 <div id="products_div">
 
@@ -47,7 +50,7 @@ if($stmt = mysqli_prepare($link, $sql)){
     function displayCompleteProductsList() {
 
 
-        var jsonArrayFromPhp = <?php echo json_encode($productArray) ?>;
+        var jsonArrayFromPhp = <?php echo json_encode($productArray); ?>;
         var strProductArray = JSON.stringify(jsonArrayFromPhp);
         var parsedProductArray = JSON.parse(strProductArray);
 
