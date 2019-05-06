@@ -39,10 +39,12 @@ if($stmt = mysqli_prepare($link, $sql)){
     }
 }
 ?>
-<div id="products_div"></div>
+<div id="products_div">
+
+</div>
 </body>
 <script>
-    function getCompleteProductsList() {
+    function displayCompleteProductsList() {
 
 
         var jsonArrayFromPhp = <?php echo json_encode($productArray) ?>;
@@ -50,17 +52,24 @@ if($stmt = mysqli_prepare($link, $sql)){
         var parsedProductArray = JSON.parse(strProductArray);
         console.log(strProductArray);
 
-        var productsDiv = document.getElementById('productsDiv');
+        var productsDiv = document.getElementById('products_div');
         productsDiv.innerHTML = '';
         for (var i = 0; i < parsedProductArray.length; i++) {
-            var divNode = undefined;
+            var productNode = undefined;
             var product = parsedProductArray[i];
             console.log(JSON.stringify(product));
+            productNode = document.createElement('div');
+            productNode.setAttribute('class', '.card');
+            productNode.innerHTML =
+                '<h1>Tailored Jeans</h1>' +
+                '<p class="price">$19.99</p>' +
+                '<p>Some text about the jeans..</p>' +
+                '<p><button>Add to Cart</button></p>';
+            productsDiv.appendChild(productNode);
         }
-        console.log(parsedProductArray);
     }
 
-    getCompleteProductsList();
+    displayCompleteProductsList();
 </script>
 </html>
 
