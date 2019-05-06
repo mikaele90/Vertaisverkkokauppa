@@ -5,6 +5,8 @@
     <title>Vertaisverkkokauppa :: Browse ::</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="images/color-star-3-152-217610.png">
+
 </head>
 <body>
 <?php
@@ -23,7 +25,7 @@ if($stmt = mysqli_prepare($link, $sql)){
         $result = mysqli_stmt_get_result($stmt);
         $num_rows = mysqli_num_rows($result);
         $jsonResult = json_encode($result);
-
+        echo "lol";
         if($num_rows == 0){
             echo $browse_value_err = "No results to display.";
         } else{
@@ -41,9 +43,9 @@ if($stmt = mysqli_prepare($link, $sql)){
 </body>
 <script>
     function getCompleteProductsList() {
-        var jsonArrayFromPhp = null;
 
-        jsonArrayFromPhp = <?php echo json_encode($productArray) ?>;
+
+        var jsonArrayFromPhp = <?php echo json_encode($productArray) ?>;
         var strProductArray = JSON.stringify(jsonArrayFromPhp);
         var parsedProductArray = JSON.parse(strProductArray);
         console.log(strProductArray);
@@ -55,6 +57,7 @@ if($stmt = mysqli_prepare($link, $sql)){
             var product = parsedProductArray[i];
             console.log(JSON.stringify(product));
         }
+        console.log(parsedProductArray);
     }
 
     getCompleteProductsList();
