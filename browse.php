@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="icon" type="image/x-icon" href="images/color-star-3-152-217610.png">
+    <link rel="stylesheet" href="css/styles.css">
 
 </head>
 <body>
@@ -31,7 +32,6 @@ if($stmt = mysqli_prepare($link, $sql)){
             echo $browse_value_err = "No results to display.";
         } else{
             while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                echo $row["ItemDescription"];
                 array_push($productArray, $row);
             }
             mysqli_free_result($result);
@@ -47,8 +47,23 @@ if($stmt = mysqli_prepare($link, $sql)){
 </div>
 </body>
 <script>
-    function displayCompleteProductsList() {
 
+
+
+    function addFunctionalityToButtons () {
+        var buttons = document.getElementsByName("all");
+
+        for(var i = 0; i <= buttons.length; i++) {
+
+            buttons[i].onclick = function() {
+
+            }
+        }
+    }
+
+
+
+    function displayCompleteProductsList() {
 
         var jsonArrayFromPhp = <?php echo json_encode($productArray); ?>;
         var strProductArray = JSON.stringify(jsonArrayFromPhp);
@@ -66,12 +81,14 @@ if($stmt = mysqli_prepare($link, $sql)){
                 '<h1 class="card">' + product.ItemName + '</h1>' +
                 '<p class="price">' + JSON.stringify(product.ItemPrice) + '€</p>' +
                 '<p class="card">' + product.ItemDescription + '</p>' +
-                '<p><button class="card">Add to Cart</button></p>' +
+                '<p><button class="card" name="all" Add to Cart</button></p>'
             productsDiv.appendChild(productNode);
         }
+        addFunctionalityToButtons()
     }
 
     displayCompleteProductsList();
+
 </script>
 </html>
 
