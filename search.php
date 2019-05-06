@@ -14,14 +14,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         // Set parameters
         $search_value = strtolower(trim($_POST[strip_tags("search")]));
-
-        //$search_value = $_POST["search"];
         $param_search_value = $search_value;
-
+        //try to execute statement
         if(mysqli_stmt_execute($stmt)){
-            /* store result */
-            //mysqli_stmt_store_result($stmt);
 
+            //store query results to result variable
+            //get the amount of rows in the query and assign it to the $num_rows variable
             $result = mysqli_stmt_get_result($stmt);
             $num_rows = mysqli_num_rows($result);
 
