@@ -52,8 +52,6 @@ if($stmt = mysqli_prepare($link, $sql)){
 </body>
 <script>
 
-
-
     function addFunctionalityToButtons () {
         var buttons = document.getElementsByName("all");
 
@@ -61,11 +59,13 @@ if($stmt = mysqli_prepare($link, $sql)){
 
             buttons[i].onclick = function() {
 
+                var shopItem = this.parentElement.parentElement;
+                var title = shopItem.getElementsByClassName("idiot")[0].textContent;
+                console.log(title);
+
             }
         }
     }
-
-
 
     function displayCompleteProductsList() {
 
@@ -82,11 +82,11 @@ if($stmt = mysqli_prepare($link, $sql)){
             productNode = document.createElement('div');
             productNode.setAttribute('class', 'card');
             productNode.innerHTML =
-                '<h1 class="card">' + product.ItemName + '</h1>' +
+                '<h1 class="idiot"  > ' + product.ItemName + '</h1>' +
                 '<img src="images/products/' + product.ImageLink + '.png" alt="Denim Jeans" style="width:100%">' +
                 '<p class="price">' + JSON.stringify(product.ItemPrice) + '€</p>' +
                 '<p class="card">' + product.ItemDescription + '</p>' +
-                '<p><button class="card" name="all" Add to Cart</button></p>'
+                '<p><button class="card" name="all"> Add to Cart</button></p>'
             productsDiv.appendChild(productNode);
         }
         addFunctionalityToButtons()
