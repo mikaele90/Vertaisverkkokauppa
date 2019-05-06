@@ -37,6 +37,7 @@ if($stmt = mysqli_prepare($link, $sql)){
     }
 }
 ?>
+<div id="products_div"></div>
 </body>
 <script>
     function getCompleteProductsList() {
@@ -46,6 +47,14 @@ if($stmt = mysqli_prepare($link, $sql)){
         var strProductArray = JSON.stringify(jsonArrayFromPhp);
         var parsedProductArray = JSON.parse(strProductArray);
         console.log(strProductArray);
+
+        var productsDiv = document.getElementById('productsDiv');
+        productsDiv.innerHTML = '';
+        for (var i = 0; i < parsedProductArray.length; i++) {
+            var divNode = undefined;
+            var product = parsedProductArray[i];
+            console.log(JSON.stringify(product));
+        }
     }
 
     getCompleteProductsList();
