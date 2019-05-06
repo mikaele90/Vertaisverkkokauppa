@@ -45,11 +45,15 @@ if($stmt = mysqli_prepare($link, $sql)){
     }
 }
 
+mysqli_close($link);
+
 ?>
 <div id="products_div">
 
 </div>
 </body>
+
+<div id = "status"></div>
 <script>
 
     function addFunctionalityToButtons () {
@@ -60,14 +64,31 @@ if($stmt = mysqli_prepare($link, $sql)){
             buttons[i].onclick = function() {
 
                 var shopItem = this.parentElement.parentElement;
-                var title = shopItem.getElementsByClassName("idiot")[0].textContent;
-                console.log(title);
+                var title = shopItem.getElementsByClassName("card")[0].textContent;
+                var quantity = shopItem.getElementsByClassName("kakka")[0].value;
+                var variablesToSend = "title="+title+"&quantity="+quantity;
+                var hr = new XMLHttpRequest();
+                var url = "testi.php";
+                hr.open("POST", url, true);
 
+
+                hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                hr.onreadystatechange = function() {
+                    if(hr.readyState == 4 && hr.status == 200) {
+                        var return_data = hr.responseText;
+                        document.getElementById("status").innerHTML = return_data;
+                    }
+                }
+
+                hr.send(variablesToSend); // Request - Send this variable to PHP
+                document.getElementById("status").innerHTML = "processing...";
             }
         }
     }
 
     function displayCompleteProductsList() {
+
 
         var jsonArrayFromPhp = <?php echo json_encode($productArray); ?>;
         var strProductArray = JSON.stringify(jsonArrayFromPhp);
@@ -82,10 +103,11 @@ if($stmt = mysqli_prepare($link, $sql)){
             productNode = document.createElement('div');
             productNode.setAttribute('class', 'card');
             productNode.innerHTML =
-                '<h1 class="idiot"  > ' + product.ItemName + '</h1>' +
+                '<h1 class="card"  > ' + product.ItemName + '</h1>' +
                 '<img src="images/products/' + product.ImageLink + '.png" alt="Denim Jeans" style="width:100%">' +
                 '<p class="price">' + JSON.stringify(product.ItemPrice) + '€</p>' +
                 '<p class="card">' + product.ItemDescription + '</p>' +
+                '<input type=number id = "InputID" class = "kakka" name="quantity" >' +
                 '<p><button class="card" name="all"> Add to Cart</button></p>'
             productsDiv.appendChild(productNode);
         }
