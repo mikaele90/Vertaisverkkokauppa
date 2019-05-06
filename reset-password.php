@@ -8,7 +8,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 
-// Include config file
+// Include database connector file
 require_once "database.php";
 
 // Define variables and initialize with empty values
@@ -55,6 +55,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 // Password updated successfully. Destroy the session, and redirect to login page
                 session_destroy();
                 header("location: login.php");
+                //exit can be called without parentheses if no parameters are given.
                 exit();
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
