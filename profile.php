@@ -95,15 +95,16 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
 
             xhr.onreadystatechange = function() {
                 if(xhr.readyState === 4 && xhr.status === 200) {
+                    console.log('XHR readyState: ' + xhr.readyState + ' // XHR Status: ' + xhr.status);
                     var return_data = xhr.responseText;
                 }
                 else {
-                    console.log('XHR error');
+                    console.log('attempting xhr...')
                 }
             };
 
             xhr.send(variablesToSend); // Request - Send this variable to PHP
-            document.getElementById("status").innerHTML = "processing...";
+            console.log('XHR SENT');
         }
         else {
             var errorNode = document.createElement('p');
