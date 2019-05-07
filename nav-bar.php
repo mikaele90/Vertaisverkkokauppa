@@ -19,7 +19,10 @@
                 <a class="nav-link" href="browse.php">Browse</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="browse.php">Browse</a>
+                <a class="nav-link" href="profile.php">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="logout.php">Logout</a>
             </li>
         </ul>
         <form action="search.php" method="post">

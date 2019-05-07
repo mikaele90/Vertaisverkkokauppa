@@ -77,7 +77,7 @@ mysqli_close($link);
                 xhr.onreadystatechange = function() {
                     if(xhr.readyState == 4 && xhr.status == 200) {
                         var return_data = xhr.responseText;
-                        document.getElementById("status").innerHTML = return_data;
+
                     }
                 };
 
@@ -88,7 +88,6 @@ mysqli_close($link);
     }
 
     function displayCompleteProductsList() {
-
 
         var jsonArrayFromPhp = <?php echo json_encode($productArray); ?>;
         var strProductArray = JSON.stringify(jsonArrayFromPhp);

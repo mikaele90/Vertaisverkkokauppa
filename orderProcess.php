@@ -7,17 +7,14 @@ echo 'Thank you '. $_POST['title'] . ' ' . $_POST['quantity'] . ', says the PHP 
 
 // Check if the user is logged in, if not then redirect to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
+    header("location: registerform.php");
     exit;
 }
 
 $item_name = $_POST['title'];
-$item_quantity_not_rdy = $_POST['quantity'];
+$item_quantity = $_POST['quantity'];
 $user_id = $_SESSION["id"];
 $readyToExecNextQuery = false;
-
-
-
 
 require_once 'database.php';
 require_once 'nav-bar.php';
@@ -25,8 +22,7 @@ require_once 'nav-bar.php';
 //MUISTA USERILLA PITÄÄ OLLA RAHAT!!!! ELI OTA HUOMIOON
 
 
-
-$sql="SELECT ItemId FROM itemdb WHERE ItemName = ?";
+$sql="SELECT ItemId, ItemPrice FROM itemdb WHERE ItemName = ?";
 
 if($stmt = mysqli_prepare($link, $sql)){
 
@@ -48,6 +44,7 @@ if($stmt = mysqli_prepare($link, $sql)){
         } else{
             while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
                 $final_item_id = $row["ItemId"];
+                $final_item_price = $row["ItemPrice"];
             }
             mysqli_free_result($result);
             $readyToExecNextQuery = true;

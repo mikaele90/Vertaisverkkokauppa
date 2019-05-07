@@ -2,6 +2,9 @@
 // Include config file
 require_once "database.php";
 
+
+
+
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = $first_name = $last_name = $email = $telephone_number = $street_address = $zip_code = $city = $country = "";
 $username_err = $password_err = $confirm_password_err = $first_name_err = $last_name_err = $email_err = $telephone_number_err = $street_address_err = $zip_code_err = $city_err = $country_err ="";
