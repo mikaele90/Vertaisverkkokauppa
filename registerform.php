@@ -3,11 +3,9 @@
 require_once "database.php";
 
 
-
-
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = $first_name = $last_name = $email = $telephone_number = $street_address = $zip_code = $city = $country = "";
-$username_err = $password_err = $confirm_password_err = $first_name_err = $last_name_err = $email_err = $telephone_number_err = $street_address_err = $zip_code_err = $city_err = $country_err ="";
+$username_err = $password_err = $confirm_password_err = $first_name_err = $last_name_err = $email_err = $telephone_number_err = $street_address_err = $zip_code_err = $city_err = $country_err = "";
 
 function validate_phone_number($phone)
 {
@@ -21,17 +19,17 @@ function validate_phone_number($phone)
 }
 
 // Processing form data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate username
-    if(empty(trim($_POST["username"]))){
+    if (empty(trim($_POST["username"]))) {
         $username_err = "Please enter a username.";
-    } else{
+    } else {
         // Prepare a select statement
 
         $sql = "SELECT UserId FROM userDB WHERE UserName = ?";
 
-        if($stmt = mysqli_prepare($link, $sql)){
+        if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "s", $param_username);
 
@@ -39,16 +37,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_username = trim($_POST["username"]);
 
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
+            if (mysqli_stmt_execute($stmt)) {
                 /* store result */
                 mysqli_stmt_store_result($stmt);
 
-                if(mysqli_stmt_num_rows($stmt) == 1){
+                if (mysqli_stmt_num_rows($stmt) == 1) {
                     $username_err = "This username is already taken.";
-                } else{
+                } else {
                     $username = trim($_POST["username"]);
                 }
-            } else{
+            } else {
                 echo "Oops! Something went wrong. Please try again later.";
             }
         }
@@ -58,99 +56,99 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     // Validate password
-    if(empty(trim($_POST["password"]))){
+    if (empty(trim($_POST["password"]))) {
         $password_err = "Please enter a password.";
-    } elseif(strlen(trim($_POST["password"])) < 6){
+    } elseif (strlen(trim($_POST["password"])) < 6) {
         $password_err = "Password must have at least six characters.";
-    } else{
+    } else {
         $password = trim($_POST["password"]);
     }
 
     // Validate confirm password
-    if(empty(trim($_POST["confirm_password"]))){
+    if (empty(trim($_POST["confirm_password"]))) {
         $confirm_password_err = "Please confirm password.";
-    } else{
+    } else {
         $confirm_password = trim($_POST["confirm_password"]);
-        if(empty($password_err) && ($password != $confirm_password)){
+        if (empty($password_err) && ($password != $confirm_password)) {
             $confirm_password_err = "Password did not match.";
         }
     }
 
     // Validate first name
-    if(empty(trim($_POST["first_name"]))){
+    if (empty(trim($_POST["first_name"]))) {
         $first_name_err = "Please confirm first name.";
-    } elseif(strlen(trim($_POST["first_name"])) < 2) {
+    } elseif (strlen(trim($_POST["first_name"])) < 2) {
         $first_name_err = "First name must have at least two characters.";
-    } else{
+    } else {
         $first_name = trim($_POST["first_name"]);
     }
 
     // Validate last name
-    if(empty(trim($_POST["last_name"]))){
+    if (empty(trim($_POST["last_name"]))) {
         $last_name_err = "Please confirm last name.";
-    } elseif(strlen(trim($_POST["last_name"])) < 2) {
+    } elseif (strlen(trim($_POST["last_name"])) < 2) {
         $last_name_err = "Last name must have at least two characters.";
-    } else{
+    } else {
         $last_name = trim($_POST["last_name"]);
     }
 
     // Validate email address
-    if(empty(trim($_POST["email"]))){
+    if (empty(trim($_POST["email"]))) {
         $email_err = "Please confirm email.";
-    } elseif(!filter_var(trim($_POST["email"]), FILTER_VALIDATE_EMAIL)) {
+    } elseif (!filter_var(trim($_POST["email"]), FILTER_VALIDATE_EMAIL)) {
         $email_err = "Your email is not valid";
-    } else{
+    } else {
         $email = trim($_POST["email"]);
     }
 
     // Validate telephone number
-    if(empty(trim($_POST["telephone_number"]))){
+    if (empty(trim($_POST["telephone_number"]))) {
         $telephone_number_err = "Please confirm telephone number.";
-    } elseif(validate_phone_number(trim($_POST["telephone_number"])) == false) {
+    } elseif (validate_phone_number(trim($_POST["telephone_number"])) == false) {
         $telephone_number_err = "Telephone number is not valid";
-    } else{
+    } else {
         $telephone_number = trim($_POST["telephone_number"]);
     }
 
     // Validate street address
-    if(empty(trim($_POST["street_address"]))){
+    if (empty(trim($_POST["street_address"]))) {
         $street_address_err = "Please confirm street address.";
-    } elseif(strlen(trim($_POST["street_address"])) < 8) {
+    } elseif (strlen(trim($_POST["street_address"])) < 8) {
         $street_address_err = "Street address must have at least eight characters.";
-    } else{
+    } else {
         $street_address = trim($_POST["street_address"]);
     }
 
     // Validate ZIP code
-    if(empty(trim($_POST["zip_code"]))){
+    if (empty(trim($_POST["zip_code"]))) {
         $zip_code_err = "Please confirm ZIP code.";
-    } elseif(strlen(trim($_POST["zip_code"])) < 5) {
+    } elseif (strlen(trim($_POST["zip_code"])) < 5) {
         $zip_code_err = "ZIP code must have at least five characters.";
-    } else{
+    } else {
         $zip_code = trim($_POST["zip_code"]);
     }
 
     // Validate city
-    if(empty(trim($_POST["city"]))){
+    if (empty(trim($_POST["city"]))) {
         $city_err = "Please confirm city name.";
-    } elseif(strlen(trim($_POST["city"])) < 1) {
+    } elseif (strlen(trim($_POST["city"])) < 1) {
         $city_err = "City name must have at least one characters.";
-    } else{
+    } else {
         $city = trim($_POST["city"]);
     }
 
     // Validate country
-    if(empty(trim($_POST["country"]))){
+    if (empty(trim($_POST["country"]))) {
         $country_err = "Please confirm country name.";
-    } elseif(strlen(trim($_POST["country"])) < 1) {
+    } elseif (strlen(trim($_POST["country"])) < 1) {
         $country_err = "Country name must have at least one characters.";
-    } else{
+    } else {
         $country = trim($_POST["country"]);
     }
 
 
     // Check input errors before inserting in database
-    if(empty($username_err) &&
+    if (empty($username_err) &&
         empty($password_err) &&
         empty($confirm_password_err) &&
         empty($first_name_err) &&
@@ -160,12 +158,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         empty($street_address_err) &&
         empty($zip_code_err) &&
         empty($city_err) &&
-        empty($country_err)){
+        empty($country_err)) {
 
         // Prepare an insert statement
         $sql = "INSERT INTO userDB (UserName, UserPassword, FirstName, LastName, Email, TelNum, StreetAddress, Zipcode, City, Country) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        if($stmt = mysqli_prepare($link, $sql)){
+        if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "ssssssssss",
                 $param_username,
@@ -192,10 +190,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_country = $country;
 
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
+            if (mysqli_stmt_execute($stmt)) {
                 // Redirect to login page
                 header("location: login.php");
-            } else{
+            } else {
                 echo "Something went wrong. Please try again later.";
             }
         }
@@ -214,11 +212,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <head>
     <meta charset="UTF-8">
     <title>Sign Up</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
     <style type="text/css">
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 350px; padding: 20px; alignment: center}
+        body {
+            font: 14px sans-serif;
+        }
+
+        .wrapper {
+            width: 350px;
+            padding: 20px;
+            alignment: center
+        }
     </style>
 </head>
 <body>
@@ -241,7 +247,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
         <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
             <label>Confirm Password</label>
-            <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
+            <input type="password" name="confirm_password" class="form-control"
+                   value="<?php echo $confirm_password; ?>">
             <span class="help-block"><?php echo $confirm_password_err; ?></span>
         </div>
         <div class="form-group <?php echo (!empty($first_name_err)) ? 'has-error' : ''; ?>">

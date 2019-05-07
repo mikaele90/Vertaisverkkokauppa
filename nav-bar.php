@@ -1,6 +1,3 @@
-
-
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:24px 0;">
     <a class="navbar-brand" href="index.php">Vertaisverkkokauppa</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">

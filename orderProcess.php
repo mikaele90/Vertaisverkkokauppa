@@ -2,11 +2,11 @@
 session_start();
 
 
-echo 'Thank you '. $_POST['title'] . ' ' . $_POST['quantity'] . ', says the PHP file';
+echo 'Thank you ' . $_POST['title'] . ' ' . $_POST['quantity'] . ', says the PHP file';
 
 
 // Check if the user is logged in, if not then redirect to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: registerform.php");
     exit;
 }
@@ -22,15 +22,15 @@ require_once 'nav-bar.php';
 //MUISTA USERILLA PITÄÄ OLLA RAHAT!!!! ELI OTA HUOMIOON
 
 
-$sql="SELECT ItemId, ItemPrice FROM itemdb WHERE ItemName = ?";
+$sql = "SELECT ItemId, ItemPrice FROM itemdb WHERE ItemName = ?";
 
-if($stmt = mysqli_prepare($link, $sql)){
+if ($stmt = mysqli_prepare($link, $sql)) {
 
     mysqli_stmt_bind_param($stmt, "s", $param_item_name);
 
     $param_item_name = trim($item_name);
 
-    if(mysqli_stmt_execute($stmt)){
+    if (mysqli_stmt_execute($stmt)) {
         /* store result */
         //mysqli_stmt_store_result($stmt);
 
@@ -39,17 +39,17 @@ if($stmt = mysqli_prepare($link, $sql)){
         $num_rows = mysqli_num_rows($result);
         $jsonResult = json_encode($result);
 
-        if($num_rows == 0){
+        if ($num_rows == 0) {
             echo $browse_value_err = "No results to display.";
-        } else{
-            while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+        } else {
+            while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                 $final_item_id = $row["ItemId"];
                 $final_item_price = $row["ItemPrice"];
             }
             mysqli_free_result($result);
             $readyToExecNextQuery = true;
         }
-    } else{
+    } else {
         echo "Oops! Something went wrong. Please try again later.";
     }
 }
@@ -57,11 +57,11 @@ if($stmt = mysqli_prepare($link, $sql)){
 mysqli_stmt_close($stmt);
 
 
-$sql="INSERT INTO orderdb (Quantity, ItemId, UserId) VALUES (?, ?, ?)";
+$sql = "INSERT INTO orderdb (Quantity, ItemId, UserId) VALUES (?, ?, ?)";
 
 if ($readyToExecNextQuery == true) {
 
-    if($stmt = mysqli_prepare($link, $sql)){
+    if ($stmt = mysqli_prepare($link, $sql)) {
 
         mysqli_stmt_bind_param($stmt, "iii", $param_quantity, $param_itemId, $param_user_id);
 
@@ -71,10 +71,10 @@ if ($readyToExecNextQuery == true) {
 
         //execute if final_item_price * quantity <= usercredit
 
-        if(mysqli_stmt_execute($stmt)){
+        if (mysqli_stmt_execute($stmt)) {
             // Redirect to login page
             header("location: login.php");
-        } else{
+        } else {
             echo "Something went wrong. Please try again later.";
         }
 
@@ -82,12 +82,9 @@ if ($readyToExecNextQuery == true) {
     mysqli_stmt_close($stmt);
 
 
-
 }
 
 mysqli_close($link);
-
-
 
 
 ?>

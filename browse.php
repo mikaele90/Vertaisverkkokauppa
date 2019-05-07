@@ -59,9 +59,10 @@ mysqli_close($link);
     function addFunctionalityToButtons () {
         var buttons = document.getElementsByName("all");
 
-        for(var i = 0; i <= buttons.length; i++) {
+        for(var i = 0; i < buttons.length; i++) {
 
             buttons[i].onclick = function() {
+                console.log(buttons.length);
 
                 var shopItem = this.parentElement.parentElement;
                 var title = shopItem.getElementsByClassName("card")[0].textContent;
