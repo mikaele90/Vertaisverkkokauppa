@@ -107,7 +107,7 @@ mysqli_close($link);
                 '<img src="images/products/' + product.ImageLink + '.png" alt="Denim Jeans" style="width:100%">' +
                 '<p class="price">' + JSON.stringify(product.ItemPrice) + '€</p>' +
                 '<p class="card">' + product.ItemDescription + '</p>' +
-                '<input type=number id = "InputID" class = "inputClass" name="quantity" >' +
+                '<input type=number min = "1" id = "InputID" value = "1" onKeyDown="return false" class = "inputClass" name="quantity" >' +
                 '<p><button class="card" name="all"> Add to Cart</button></p>'
             productsDiv.appendChild(productNode);
         }

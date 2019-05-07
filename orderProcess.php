@@ -12,9 +12,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 
 $item_name = $_POST['title'];
-$item_quantity = $_POST['quantity'];
+$item_quantity_not_rdy = $_POST['quantity'];
 $user_id = $_SESSION["id"];
 $readyToExecNextQuery = false;
+
+
 
 
 require_once 'database.php';

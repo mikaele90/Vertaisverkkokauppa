@@ -16,7 +16,10 @@
                 <a class="nav-link" href="login.php">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="javascript:void(0)">Browse</a>
+                <a class="nav-link" href="browse.php">Browse</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="browse.php">Browse</a>
             </li>
         </ul>
         <form action="search.php" method="post">
