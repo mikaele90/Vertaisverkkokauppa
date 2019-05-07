@@ -12,13 +12,12 @@ require_once 'database.php';
 
 if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
 
-    $sql = "SELECT Credits FROM userDB WHERE UserName =  ? ";
+    $sql = "SELECT Credits FROM userDB WHERE UserId =  ? ";
     $credits = null;
 
     if ($stmt = mysqli_prepare($link, $sql)) {
         // Bind variables to the prepared statement as parameters
         mysqli_stmt_bind_param($stmt, "i", $param_id);
-        //session_start();
         $param_id = $_SESSION["id"];
 
         // Attempt to execute the prepared statement
@@ -53,17 +52,18 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
 <body>
 
 <?php require_once 'nav-bar.php' ?>
-<?php
-    echo $credits;
-    echo $_SESSION["credits"];
-?>
+
 
 <div class="page-header">
     <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
+</div>
+<div style="display: inline-block">
+    <p>Current account balance: <b><?php echo $_SESSION["credits"]; ?></b></p>
 </div>
 <p>
     <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
     <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
 </p>
+
 </body>
 </html>
