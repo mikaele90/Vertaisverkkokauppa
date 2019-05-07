@@ -6,7 +6,7 @@ USE verkkokauppa;
 CREATE TABLE UserDB
 (
     UserId INT NOT NULL AUTO_INCREMENT,
-    Credits INT,
+    Credits FLOAT,
     FirstName VARCHAR(100),
     LastName VARCHAR(100),
     Email VARCHAR(100),

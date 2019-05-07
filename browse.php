@@ -65,23 +65,23 @@ mysqli_close($link);
 
                 var shopItem = this.parentElement.parentElement;
                 var title = shopItem.getElementsByClassName("card")[0].textContent;
-                var quantity = shopItem.getElementsByClassName("kakka")[0].value;
+                var quantity = shopItem.getElementsByClassName("inputClass")[0].value;
                 var variablesToSend = "title="+title+"&quantity="+quantity;
-                var hr = new XMLHttpRequest();
-                var url = "testi.php";
-                hr.open("POST", url, true);
+                var xhr = new XMLHttpRequest();
+                var url = "orderProcess.php";
+                xhr.open("POST", url, true);
 
 
-                hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-                hr.onreadystatechange = function() {
-                    if(hr.readyState == 4 && hr.status == 200) {
-                        var return_data = hr.responseText;
+                xhr.onreadystatechange = function() {
+                    if(xhr.readyState == 4 && xhr.status == 200) {
+                        var return_data = xhr.responseText;
                         document.getElementById("status").innerHTML = return_data;
                     }
-                }
+                };
 
-                hr.send(variablesToSend); // Request - Send this variable to PHP
+                xhr.send(variablesToSend); // Request - Send this variable to PHP
                 document.getElementById("status").innerHTML = "processing...";
             }
         }
@@ -107,7 +107,7 @@ mysqli_close($link);
                 '<img src="images/products/' + product.ImageLink + '.png" alt="Denim Jeans" style="width:100%">' +
                 '<p class="price">' + JSON.stringify(product.ItemPrice) + '€</p>' +
                 '<p class="card">' + product.ItemDescription + '</p>' +
-                '<input type=number id = "InputID" class = "kakka" name="quantity" >' +
+                '<input type=number id = "InputID" class = "inputClass" name="quantity" >' +
                 '<p><button class="card" name="all"> Add to Cart</button></p>'
             productsDiv.appendChild(productNode);
         }

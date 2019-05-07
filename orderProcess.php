@@ -14,6 +14,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 $item_name = $_POST['title'];
 $item_quantity = $_POST['quantity'];
 $user_id = $_SESSION["id"];
+$readyToExecNextQuery = false;
 
 
 require_once 'database.php';
@@ -47,6 +48,7 @@ if($stmt = mysqli_prepare($link, $sql)){
                 $final_item_id = $row["ItemId"];
             }
             mysqli_free_result($result);
+            $readyToExecNextQuery = true;
         }
     } else{
         echo "Oops! Something went wrong. Please try again later.";
@@ -55,37 +57,32 @@ if($stmt = mysqli_prepare($link, $sql)){
 
 mysqli_stmt_close($stmt);
 
-if($stmt = mysqli_prepare($link, $sql)){
 
-    mysqli_stmt_bind_param($stmt, "s", $param_item_name);
+$sql="INSERT INTO orderdb (Quantity, ItemId, UserId) VALUES (?, ?, ?)";
 
-    $param_item_name = trim($item_name);
+if ($readyToExecNextQuery == true) {
 
-    if(mysqli_stmt_execute($stmt)){
-        /* store result */
-        //mysqli_stmt_store_result($stmt);
+    if($stmt = mysqli_prepare($link, $sql)){
+
+        mysqli_stmt_bind_param($stmt, "iii", $param_quantity, $param_itemId, $param_user_id);
+
+        $param_quantity = $item_quantity;
+        $param_itemId = $final_item_id;
+        $param_user_id = $user_id;
 
 
-        $result = mysqli_stmt_get_result($stmt);
-        $num_rows = mysqli_num_rows($result);
-        $jsonResult = json_encode($result);
 
-        if($num_rows == 0){
-            echo $browse_value_err = "No results to display.";
+        if(mysqli_stmt_execute($stmt)){
+            // Redirect to login page
+            header("location: login.php");
         } else{
-            while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                $final_item_id = $row["ItemId"];
-            }
-            mysqli_free_result($result);
+            echo "Something went wrong. Please try again later.";
         }
-    } else{
-        echo "Oops! Something went wrong. Please try again later.";
+
     }
+    mysqli_stmt_close($stmt);
+
 }
-
-
-
-
 
 mysqli_close($link);
 
