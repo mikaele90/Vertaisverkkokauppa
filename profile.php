@@ -94,14 +94,27 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
             xhr.onreadystatechange = function() {
+<<<<<<< HEAD
                 if(xhr.readyState == 4 && xhr.status == 200) {
                     var return_data = xhr.responseText;
                 } else {
                     console.log('XHR error');
+=======
+                if(xhr.readyState === 4 && xhr.status === 200) {
+                    console.log('XHR readyState: ' + xhr.readyState + ' // XHR Status: ' + xhr.status);
+                    var return_data = xhr.responseText;
+                }
+                else {
+                    console.log('attempting xhr...')
+>>>>>>> 0e8e5b3aab8c77f6b90aa687cdff8e8f106e6f22
                 }
             };
 
             xhr.send(variablesToSend); // Request - Send this variable to PHP
+<<<<<<< HEAD
+=======
+            console.log('XHR SENT');
+>>>>>>> 0e8e5b3aab8c77f6b90aa687cdff8e8f106e6f22
         }
         else {
             var errorNode = document.createElement('p');
