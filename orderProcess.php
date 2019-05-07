@@ -21,6 +21,7 @@ require_once 'nav-bar.php';
 
 //MUISTA USERILLA PITÄÄ OLLA RAHAT!!!! ELI OTA HUOMIOON
 
+$final_item_price = "";
 
 $sql = "SELECT ItemId, ItemPrice FROM itemdb WHERE ItemName = ?";
 
@@ -57,34 +58,68 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 mysqli_stmt_close($stmt);
 
 
-$sql = "INSERT INTO orderdb (Quantity, ItemId, UserId) VALUES (?, ?, ?)";
+$sql1 = "SELECT Credits FROM userdb WHERE userId = ?";
+
+
+$readyToExecNextQuery2 = false;
 
 if ($readyToExecNextQuery == true) {
 
-    if ($stmt = mysqli_prepare($link, $sql)) {
+    if ($stmt1 = mysqli_prepare($link, $sql1)) {
 
-        mysqli_stmt_bind_param($stmt, "iii", $param_quantity, $param_itemId, $param_user_id);
+        mysqli_stmt_bind_param($stmt1, "i", $user_id);
 
+        // Attempt to execute the prepared statement
+        if (mysqli_stmt_execute($stmt1)) {
+            // Store result
+            mysqli_stmt_store_result($stmt1);
+
+            // Check if username exists, if yes then verify password
+            if (mysqli_stmt_num_rows($stmt1) == 1) {
+                // Bind result variables
+                mysqli_stmt_bind_result($stmt1, $Credits);
+                if (mysqli_stmt_fetch($stmt1)) {
+
+                    $user_credits = $Credits;
+
+                    if ((floatval($final_item_price) * floatval($item_quantity)) <= $user_credits) {
+                        $readyToExecNextQuery2 = true;
+
+                    }
+
+                }
+                // lisää elset
+            }
+
+        }
+
+    }
+    mysqli_stmt_close($stmt1);
+
+
+}
+
+$sql2 = "INSERT INTO orderdb (Quantity, ItemId, UserId) VALUES (?, ?, ?)";
+
+if ($readyToExecNextQuery2 == true) {
+
+    if ($stmt2 = mysqli_prepare($link, $sql2)) {
+        mysqli_stmt_bind_param($stmt2, "iii", $param_quantity, $param_itemId, $param_user_id);
         $param_quantity = $item_quantity;
         $param_itemId = $final_item_id;
         $param_user_id = $user_id;
 
-        //execute if final_item_price * quantity <= usercredit
-
-        if (mysqli_stmt_execute($stmt)) {
+        if (mysqli_stmt_execute($stmt2)) {
             // Redirect to login page
             header("location: login.php");
         } else {
             echo "Something went wrong. Please try again later.";
         }
-
     }
-    mysqli_stmt_close($stmt);
+    mysqli_stmt_close($stmt2);
 
 
 }
 
 mysqli_close($link);
-
-
 ?>

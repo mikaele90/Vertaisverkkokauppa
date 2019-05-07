@@ -16,6 +16,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
     // Set parameters
     $param_user_credits = $_SESSION["credits"];
     $param_credits_to_add = $credits_to_add;
+
     $param_id = $_SESSION["id"];
 
     if (mysqli_stmt_execute($stmt)) {
