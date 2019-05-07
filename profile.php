@@ -62,11 +62,11 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
         <button type="button" class="btn btn-info" id="display_add_credits" onclick="displayAddStoreCredits()">Add balance</button></p>
     <form id="add_store_credits_form" style="display: none">
         <label>Insert amount of store credits to be transferred:
-        <input type="number" min="1.00" id="add_store_credits_input" placeholder="0"> €</label>
+        <input type="number" min="1.00" maxlength="6" id="add_store_credits_input" placeholder="0"> €</label>
         <button type="button" id="confirm_add_store_credits_btn" class="btn btn-success" onclick="addStoreCredits()">Confirm transfer</button>
     </form>
 </div>
-</hr>
+<hr/>
 <p>
     <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
     <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
@@ -80,6 +80,18 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
 
     function addStoreCredits() {
         console.log('add credits');
+        var addCreditsForm = document.getElementById('add_store_credits_form');
+        var addCreditsInput = document.getElementById('add_store_credits_input');
+        if ((!(addCreditsInput.isEmpty)) && addCreditsInput.value >= 1) {
+            console.log('add credits 2');
+        }
+        else {
+            var errorNode = document.createElement('p');
+            errorNode.setAttribute('color','red');
+            errorNode.innerHTML = 'Error adding credits: Must be at least 1 euro.';
+            addCreditsForm.appendChild(errorNode);
+            console.log('add credits error');
+        }
     }
 </script>
 </html>
