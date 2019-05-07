@@ -84,10 +84,29 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
         var addCreditsInput = document.getElementById('add_store_credits_input');
         if ((!(addCreditsInput.isEmpty)) && addCreditsInput.value >= 1) {
             console.log('add credits 2');
+            var creditsToAdd = addCreditsInput.value;
+            var variablesToSend = "credits=" + creditsToAdd;
+            var xhr = new XMLHttpRequest();
+            var url = "add-credits.php";
+            xhr.open("POST", url, true);
+
+
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState === 4 && xhr.status === 200) {
+                    var return_data = xhr.responseText;
+                }
+                else {
+                    console.log('XHR error');
+                }
+            };
+
+            xhr.send(variablesToSend); // Request - Send this variable to PHP
+            document.getElementById("status").innerHTML = "processing...";
         }
         else {
             var errorNode = document.createElement('p');
-            errorNode.setAttribute('color','red');
             errorNode.innerHTML = 'Error adding credits: Must be at least 1 euro.';
             addCreditsForm.appendChild(errorNode);
             console.log('add credits error');
