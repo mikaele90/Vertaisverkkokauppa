@@ -69,7 +69,7 @@ if ($readyToExecNextQuery == true) {
         $param_itemId = $final_item_id;
         $param_user_id = $user_id;
 
-
+        //execute if final_item_price * quantity <= usercredit
 
         if(mysqli_stmt_execute($stmt)){
             // Redirect to login page
