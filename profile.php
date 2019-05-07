@@ -43,7 +43,7 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style type="text/css">
         body{ font: 14px sans-serif; text-align: center; }
@@ -55,15 +55,31 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
 
 
 <div class="page-header">
-    <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
+    <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>.</h1>
 </div>
 <div style="display: inline-block">
-    <p>Current account balance: <b><?php echo $_SESSION["credits"]; ?></b></p>
+    <p style="font: 16px sans-serif;">Current account balance: <b><?php echo $_SESSION["credits"]; ?></b>
+        <button type="button" class="btn btn-info" id="display_add_credits" onclick="displayAddStoreCredits()">Add balance</button></p>
+    <form id="add_store_credits_form" style="display: none">
+        <label>Insert amount of store credits to be transferred:
+        <input type="number" min="1.00" id="add_store_credits_input" placeholder="0"> €</label>
+        <button type="button" id="confirm_add_store_credits_btn" class="btn btn-success" onclick="addStoreCredits()">Confirm transfer</button>
+    </form>
 </div>
+</hr>
 <p>
     <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
     <a href="logout.php" class="btn btn-danger">Sign Out of Your Account</a>
 </p>
 
 </body>
+<script type="text/javascript">
+    function displayAddStoreCredits() {
+        document.getElementById('add_store_credits_form').style.display = 'block';
+    }
+
+    function addStoreCredits() {
+        console.log('add credits');
+    }
+</script>
 </html>
