@@ -6,7 +6,7 @@ USE verkkokauppa;
 CREATE TABLE UserDB
 (
     UserId INT NOT NULL AUTO_INCREMENT,
-    Credits FLOAT DEFAULT 0,
+    Credits DOUBLE DEFAULT 0,
     FirstName VARCHAR(100),
     LastName VARCHAR(100),
     Email VARCHAR(100),
@@ -26,7 +26,7 @@ CREATE TABLE ItemDB
     ItemId INT NOT NULL AUTO_INCREMENT,
     ItemName VARCHAR(100),
     ItemCategory VARCHAR(100),
-    ItemPrice FLOAT,
+    ItemPrice DOUBLE,
     ItemDescription VARCHAR(100),
     ItemSubCategory VARCHAR(100),
     ImageLink VARCHAR(100) DEFAULT 'default',
