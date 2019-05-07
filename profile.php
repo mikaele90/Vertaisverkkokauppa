@@ -10,10 +10,11 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
 require_once 'database.php';
 
+
+
 if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
 
     $sql = "SELECT Credits FROM userDB WHERE UserId =  ? ";
-
 
     if ($stmt = mysqli_prepare($link, $sql)) {
         // Bind variables to the prepared statement as parameters
@@ -36,6 +37,7 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
             }
         }
     }
+
 }
 ?>
 
@@ -62,7 +64,7 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
     <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>.</h1>
 </div>
 <div style="display: inline-block">
-    <p style="font: 16px sans-serif;">Current account balance: <b><?php echo $_SESSION["credits"]; ?></b>
+    <p style="font: 16px sans-serif;">Current account balance: <b> <?php echo $_SESSION["credits"]?> </b>
         <button type="button" class="btn btn-info" id="display_add_credits" onclick="displayAddStoreCredits()">Add
             balance
         </button>
