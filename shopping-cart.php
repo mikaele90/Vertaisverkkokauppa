@@ -3,7 +3,7 @@ session_start();
 require_once 'database.php';
 
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: registerform.php");
+    header("location: login.php");
     exit;
 }
 
@@ -47,8 +47,8 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
     <?php require_once 'header.php' ?>
 </head>
 <body>
-<?php require_once 'nav-bar.php'; ?>
-<div id="shopping_cart_div"></div>
+    <?php require_once 'nav-bar.php'; ?>
+    <div id="shopping_cart_div"></div>
 </body>
 <script type="text/javascript">
     function displayCartContents() {

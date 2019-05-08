@@ -53,7 +53,7 @@
             buttons[i].onclick = function() {
 
                 /* Vihreä boxi setup */
-                var statusElement = document.getElementById("status")
+                var statusElement = document.getElementById("status");
                 statusElement.innerHTML = '<div class="alert alert-success">Tuote lisätty onnistuneesti!</div>';
                 var styleAttr = document.createAttribute("style");
                 styleAttr.value = "display: none; margin-left: 1.5em;";
@@ -77,6 +77,7 @@
 
                         /* Vihreä boxi pop-in */
                         styleAttr.value = "display: inline-block; margin-left: 1.5em;";
+
                         function callback(){
                             return function(){
                                 styleAttr.value = "display: none; margin-left: 1.5em;";
@@ -86,6 +87,7 @@
                     }
                 };
                 xhr.send(variablesToSend); // Request - Send this variable to PHP
+
             }
         }
     }
