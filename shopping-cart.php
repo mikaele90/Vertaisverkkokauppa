@@ -65,33 +65,34 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
 
         var cartTdNode = document.createElement('td');
         var cartTrNode = document.createElement('tr');
+        var cartThNode = document.createElement('th');
 
         shoppingCartDiv.appendChild(cartTableNode);
         cartTableNode.appendChild(cartTrNode);
         for (var i = 0; i < shoppingCartHeaders.length; i++) {
-            var cartThNode = document.createElement('th');
+            cartThNode = document.createElement('th');
             cartThNode.innerHTML = shoppingCartHeaders[i];
             cartTrNode.appendChild(cartThNode);
         }
         for (var j = 0; j < parsedCartArray.length; j++) {
-            var cartTrNode = document.createElement('tr');
+            cartTrNode = document.createElement('tr');
             cartTableNode.appendChild(cartTrNode);
-            var cartTdNode = document.createElement('td');
+            cartTdNode = document.createElement('td');
             cartTdNode.innerHTML = parsedCartArray[j].OrderId;
             cartTrNode.appendChild(cartTdNode);
-            var cartTdNode = document.createElement('td');
+            cartTdNode = document.createElement('td');
             cartTdNode.innerHTML = parsedCartArray[j].Quantity;
             cartTrNode.appendChild(cartTdNode);
-            var cartTdNode = document.createElement('td');
+            cartTdNode = document.createElement('td');
             cartTdNode.innerHTML = parsedCartArray[j].ItemId;
             cartTrNode.appendChild(cartTdNode);
-            var cartTdNode = document.createElement('td');
+            cartTdNode = document.createElement('td');
             cartTdNode.innerHTML = parsedCartArray[j].ItemName;
             cartTrNode.appendChild(cartTdNode);
-            var cartTdNode = document.createElement('td');
+            cartTdNode = document.createElement('td');
             cartTdNode.innerHTML = parsedCartArray[j].ItemPrice;
             cartTrNode.appendChild(cartTdNode);
-            var cartTdNode = document.createElement('td');
+            cartTdNode = document.createElement('td');
             cartTdNode.innerHTML = (parseFloat(parsedCartArray[j].Quantity) * parseFloat(parsedCartArray[j].ItemPrice));
             cartTrNode.appendChild(cartTdNode);
         }
