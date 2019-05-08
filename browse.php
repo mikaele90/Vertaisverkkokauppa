@@ -8,7 +8,7 @@
     require_once 'database.php';
     require_once 'nav-bar.php';
 
-    $sql="SELECT * FROM itemDB";
+    $sql="SELECT * FROM ItemDB";
     $productArray = Array();
 
 
