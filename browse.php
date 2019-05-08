@@ -48,12 +48,11 @@ if($stmt = mysqli_prepare($link, $sql)){
 mysqli_close($link);
 
 ?>
-<div id="products_div">
-
-</div>
+<div id="products_div" style="padding: 1.5em"></div>
+<div id="status" style="width: 20%; padding-left: 1.5em;"></div>
 </body>
 
-<div id = "status"></div>
+
 <script>
 
     function addFunctionalityToButtons () {
@@ -76,14 +75,12 @@ mysqli_close($link);
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
                 xhr.onreadystatechange = function() {
-                    if(xhr.readyState == 4 && xhr.status == 200) {
+                    if(xhr.readyState === 4 && xhr.status === 200) {
                         var return_data = xhr.responseText;
-
+                        document.getElementById("status").innerHTML = 'Tuote lisätty onnistuneesti!';
                     }
                 };
-
                 xhr.send(variablesToSend); // Request - Send this variable to PHP
-                document.getElementById("status").innerHTML = "processing...";
             }
         }
     }
@@ -103,12 +100,12 @@ mysqli_close($link);
             productNode = document.createElement('div');
             productNode.setAttribute('class', 'card');
             productNode.innerHTML =
-                '<h1 class="card"  > ' + product.ItemName + '</h1>' +
-                '<img src="images/products/' + product.ImageLink + '.png" alt="Denim Jeans" style="width:100%">' +
+                '<label class="card"><h1 class="card"> ' + product.ItemName + '</h1></label>' +
+                '<img src="images/products/' + product.ImageLink + '.png" alt="' + product.ItemName + ' Picture" style="width:100%">' +
                 '<p class="price">' + JSON.stringify(product.ItemPrice) + '€</p>' +
                 '<p class="card">' + product.ItemDescription + '</p>' +
-                '<input type=number min = "1" id = "InputID" value = "1" onKeyDown="return false" class = "inputClass" name="quantity" >' +
-                '<p><button class="card" name="all"> Add to Cart</button></p>'
+                '<label><input type=number min = "1" id = "InputID" value = "1" onKeyDown="return false" class = "inputClass" name="quantity" > kpl</label>' +
+                '<p><button class="card" name="all"> Add to Cart</button></p>';
             productsDiv.appendChild(productNode);
         }
         addFunctionalityToButtons()
