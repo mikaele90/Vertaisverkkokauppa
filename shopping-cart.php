@@ -25,7 +25,7 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
             $jsonResult = json_encode($result);
 
             if ($num_rows === 0) {
-                echo $cart_value_err = "No results to display.";
+                echo '';
             } else {
                 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                     array_push($shopping_cart_array, $row);

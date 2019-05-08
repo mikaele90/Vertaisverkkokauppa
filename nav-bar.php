@@ -25,7 +25,7 @@
                 <a class="nav-link" href="logout.php">Logout</a>
             </li>
         </ul>
-        <form action="search.php" method="post">
+        <form action="search.php" method="post" class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search">
             <button class="btn btn-success my-2 my-sm-0" type="submit" name="submit" value="Search">Search</button>
         </form>
