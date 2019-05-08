@@ -108,7 +108,8 @@ mysqli_close($link);
                 '<p class="card">' + product.ItemDescription + '</p>' +
                 '<label><input type=number min = "1" id = "InputID" value = "1" onKeyDown="return false" class = "inputClass" name="quantity" > kpl</label>' +
                 '<p><button class="card" name="all">Add to Cart</button></p>' +
-                '</div> ';
+                '</div>';
+
             productsDiv.appendChild(productNode);
         }
         addFunctionalityToButtons()
