@@ -42,7 +42,11 @@ CREATE TABLE OrderDB
     UserId INT,
     TotalPrice DOUBLE,
     IsBought BOOLEAN DEFAULT '0',
+<<<<<<< HEAD
     Timeoforder DATETIME(2) NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+=======
+    Timeoforder DATETIME(2) ON UPDATE CURRENT_TIMESTAMP ,
+>>>>>>> f946b3774a9b0f4d64270b66737d7f936fed8f0a
     PRIMARY KEY (OrderId),
     FOREIGN KEY (ItemId) REFERENCES ItemDB(ItemId),
     FOREIGN KEY (UserId) REFERENCES UserDB(UserId)
