@@ -64,14 +64,15 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
     <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>.</h1>
 </div>
 <div style="display: inline-block">
-    <p style="font: 16px sans-serif;">Current account balance: <b> <?php echo $_SESSION["credits"]?> </b>
+    <p id="current_balance_p" style="font: 16px sans-serif;">Current account balance: <b> <?php echo $_SESSION["credits"]?> </b>
         <button type="button" class="btn btn-info" id="display_add_credits" onclick="displayAddStoreCredits()">Add
             balance
         </button>
     </p>
     <form id="add_store_credits_form" style="display: none">
         <label>Insert amount of store credits to be transferred:
-            <input type="number" min="1.00" maxlength="6" id="add_store_credits_input" placeholder="0"> €</label>
+            <input type="number" min="1.00" maxlength="6" id="add_store_credits_input" placeholder="0"> €
+        </label>
         <button type="button" id="confirm_add_store_credits_btn" class="btn btn-success" onclick="addStoreCredits()">
             Confirm transfer
         </button>
@@ -106,10 +107,14 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
 
             xhr.onreadystatechange = function () {
 
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var return_data = xhr.responseText;
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var return_data = JSON.parse(xhr.responseText);
+                    document.getElementById('current_balance_p').innerHTML = 'Current account balance: <b>' + return_data + '</b> ' +
+                        '<button type="button" class="btn btn-info" id="display_add_credits" onclick="displayAddStoreCredits()">Add balance' +
+                        '</button>';
+                    console.log('Return: ' + return_data);
                 } else {
-                    console.log('XHR error');
+                    console.log('XHR attempt...');
                 }
 
             };
@@ -117,6 +122,7 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
             xhr.send(variablesToSend); // Request - Send this variable to PHP
 
             console.log('XHR SENT');
+
 
         } else {
             var errorNode = document.createElement('p');

@@ -47,7 +47,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
     $param_id = $_SESSION["id"];
 
     if (mysqli_stmt_execute($stmt)) {
-
+        echo $new_credits = $param_user_credits + $param_credits_to_add;
     } else {
         echo "Oops! Something went wrong. Please try again later.";
     }
