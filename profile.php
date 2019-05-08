@@ -11,7 +11,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 require_once 'database.php';
 
 
-
 if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
 
     $sql = "SELECT Credits FROM userDB WHERE UserId =  ? ";
@@ -64,7 +63,8 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
     <h1>Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>.</h1>
 </div>
 <div style="display: inline-block">
-    <p id="current_balance_p" style="font: 16px sans-serif;">Current account balance: <b> <?php echo $_SESSION["credits"]?> </b>
+    <p id="current_balance_p" style="font: 16px sans-serif;">Current account balance:
+        <b> <?php echo $_SESSION["credits"] ?> </b>
         <button type="button" class="btn btn-info" id="display_add_credits" onclick="displayAddStoreCredits()">Add
             balance
         </button>
@@ -96,6 +96,7 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
         var addCreditsInput = document.getElementById('add_store_credits_input');
         if ((!(addCreditsInput.isEmpty)) && addCreditsInput.value >= 1) {
             console.log('add credits 2');
+            //Should be float_val here, i can wish...
             var creditsToAdd = Number(addCreditsInput.value).toFixed(2);
             var variablesToSend = "credits=" + creditsToAdd;
             var xhr = new XMLHttpRequest();
@@ -109,6 +110,7 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
 
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var return_data = JSON.parse(xhr.responseText);
+                    console.log(return_data);
                     document.getElementById('current_balance_p').innerHTML = 'Current account balance: <b>' + return_data + '</b> ' +
                         '<button type="button" class="btn btn-info" id="display_add_credits" onclick="displayAddStoreCredits()">Add balance' +
                         '</button>';
