@@ -8,7 +8,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 }
 
 if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
-    $sql="SELECT * FROM OrderDB WHERE UserId = ? AND IsBought = ?";
+    $sql="SELECT * FROM OrderDB INNER JOIN ItemDB ON OrderDB.ItemId = ItemDB.ItemId WHERE OrderDB.UserId = ? AND OrderDB.IsBought = ?;";
     $shopping_cart_array = Array();
 
     if ($stmt = mysqli_prepare($link, $sql)) {
@@ -90,10 +90,10 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
             cartTdNode.innerHTML = parsedCartArray[j].ItemName;
             cartTrNode.appendChild(cartTdNode);
             cartTdNode = document.createElement('td');
-            cartTdNode.innerHTML = parsedCartArray[j].ItemPrice;
+            cartTdNode.innerHTML = parseFloat(parsedCartArray[j].ItemPrice).toFixed(2);
             cartTrNode.appendChild(cartTdNode);
             cartTdNode = document.createElement('td');
-            cartTdNode.innerHTML = (parseFloat(parsedCartArray[j].Quantity) * parseFloat(parsedCartArray[j].ItemPrice));
+            cartTdNode.innerHTML = (parseFloat(parsedCartArray[j].Quantity).toFixed(0) * parseFloat(parsedCartArray[j].ItemPrice).toFixed(2)).toFixed(2);
             cartTrNode.appendChild(cartTdNode);
         }
     }
