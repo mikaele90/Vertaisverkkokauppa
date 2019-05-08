@@ -4,6 +4,11 @@ session_start();
 
 include "database.php";
 
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: login.php");
+    exit;
+}
+
 $credits_to_add = $_POST['credits'];
 $credits_to_add = floatval($credits_to_add);
 
@@ -53,22 +58,6 @@ if ($stmt = mysqli_prepare($link, $sql)) {
     }
 }
 
-
-
 mysqli_stmt_close($stmt);
-
-
-
-
-
-
-
-
 mysqli_close($link);
-
-
-
-?>
-
-
 

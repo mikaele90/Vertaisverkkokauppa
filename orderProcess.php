@@ -7,7 +7,7 @@ echo 'Thank you ' . $_POST['title'] . ' ' . $_POST['quantity'] . ', says the PHP
 
 // Check if the user is logged in, if not then redirect to login page
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: registerform.php");
+    header("location: login.php");
     exit;
 }
 
@@ -34,7 +34,6 @@ if ($stmt = mysqli_prepare($link, $sql)) {
     if (mysqli_stmt_execute($stmt)) {
         /* store result */
         //mysqli_stmt_store_result($stmt);
-
 
         $result = mysqli_stmt_get_result($stmt);
         $num_rows = mysqli_num_rows($result);
@@ -122,4 +121,3 @@ if ($readyToExecNextQuery2 == true) {
 }
 
 mysqli_close($link);
-?>

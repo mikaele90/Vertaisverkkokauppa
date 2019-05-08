@@ -30,11 +30,22 @@
 }
 
 .card button:active {
-    border: 0.1em;
-    border-color: azure;
     opacity: 0.8
 }
 
 .shopping_cart_table {
     font: 16px sans-serif;
+    display: inline-block;
+    border-collapse: collapse;
+    border: 4px solid black;
+}
+
+.shopping_cart_table tr th td {
+    border-collapse: collapse;
+    border: 4px solid black;
+}
+
+.shopping_cart_div {
+    align-content: center;
+    text-align: center;
 }
