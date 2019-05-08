@@ -49,7 +49,8 @@ mysqli_close($link);
 
 ?>
 <div id="products_div" style="padding: 1.5em; margin= 1em;"></div>
-<div id="status" style="width: 20%; padding-left: 1.5em;"></div>
+<div id="status" style="width: 20%; margin-left: 1.5em;"></div>
+
 </body>
 
 
@@ -77,7 +78,7 @@ mysqli_close($link);
                 xhr.onreadystatechange = function() {
                     if(xhr.readyState === 4 && xhr.status === 200) {
                         var return_data = xhr.responseText;
-                        document.getElementById("status").innerHTML = 'Tuote lisätty onnistuneesti!';
+                        document.getElementById("status").innerHTML = '<div class="alert alert-success">Tuote lisätty onnistuneesti!</div>';
                     }
                 };
                 xhr.send(variablesToSend); // Request - Send this variable to PHP
