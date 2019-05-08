@@ -61,18 +61,39 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
         shoppingCartDiv.innerHTML = '<p>Ostoskori</p>';
         var shoppingCartHeaders = ['#', 'Quantity', 'Product number', 'Product name', 'Price á', 'Total price'];
         var cartTableNode = document.createElement('table');
-        var cartThNode = document.createElement('th');
+        cartTableNode.setAttribute('class', 'shopping_cart_table');
+
         var cartTdNode = document.createElement('td');
         var cartTrNode = document.createElement('tr');
-        for (var i = 0; i < parsedCartArray.length; i++) {
-            var cartNode = undefined;
-            var orderRow = parsedCartArray[i];
-            console.log(JSON.stringify(orderRow));
-            cartNode = document.createElement('td');
-            cartNode.innerHTML =
-                '';
 
-            shoppingCartDiv.appendChild(cartNode);
+        shoppingCartDiv.appendChild(cartTableNode);
+        cartTableNode.appendChild(cartTrNode);
+        for (var i = 0; i < shoppingCartHeaders.length; i++) {
+            var cartThNode = document.createElement('th');
+            cartThNode.innerHTML = shoppingCartHeaders[i];
+            cartTrNode.appendChild(cartThNode);
+        }
+        for (var j = 0; j < parsedCartArray.length; j++) {
+            var cartTrNode = document.createElement('tr');
+            cartTableNode.appendChild(cartTrNode);
+            var cartTdNode = document.createElement('td');
+            cartTdNode.innerHTML = parsedCartArray[j].OrderId;
+            cartTrNode.appendChild(cartTdNode);
+            var cartTdNode = document.createElement('td');
+            cartTdNode.innerHTML = parsedCartArray[j].Quantity;
+            cartTrNode.appendChild(cartTdNode);
+            var cartTdNode = document.createElement('td');
+            cartTdNode.innerHTML = parsedCartArray[j].ItemId;
+            cartTrNode.appendChild(cartTdNode);
+            var cartTdNode = document.createElement('td');
+            cartTdNode.innerHTML = parsedCartArray[j].ItemName;
+            cartTrNode.appendChild(cartTdNode);
+            var cartTdNode = document.createElement('td');
+            cartTdNode.innerHTML = parsedCartArray[j].ItemPrice;
+            cartTrNode.appendChild(cartTdNode);
+            var cartTdNode = document.createElement('td');
+            cartTdNode.innerHTML = (parseFloat(parsedCartArray[j].Quantity) * parseFloat(parsedCartArray[j].ItemPrice));
+            cartTrNode.appendChild(cartTdNode);
         }
     }
 
