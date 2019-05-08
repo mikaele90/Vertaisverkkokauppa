@@ -33,6 +33,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 mysqli_free_result($result);
             }
         } else {
+            //pitäsköhän täs olla näi muute dispayCompleteProductsList kusee
+            //koska jos tää kusee toi js ei saa tota searchArrayt ja flippaa palasiks siks se tuol varotteliiki
+            //("location: profile.php");
+            //header
+            //exit;
             echo "Oops! Something went wrong. Please try again later.";
         }
     }
