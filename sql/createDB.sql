@@ -40,6 +40,9 @@ CREATE TABLE OrderDB
     Quantity INT,
     ItemId INT,
     UserId INT,
+    TotalPrice DOUBLE,
+    IsBought BOOLEAN DEFAULT '0',
+    Timeoforder DATETIME ON UPDATE CURRENT_TIMESTAMP ,
     PRIMARY KEY (OrderId),
     FOREIGN KEY (ItemId) REFERENCES ItemDB(ItemId),
     FOREIGN KEY (UserId) REFERENCES UserDB(UserId)
