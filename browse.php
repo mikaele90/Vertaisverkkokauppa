@@ -48,7 +48,7 @@ if($stmt = mysqli_prepare($link, $sql)){
 mysqli_close($link);
 
 ?>
-<div id="products_div" style="padding: 1.5em"></div>
+<div id="products_div" style="padding: 1.5em; margin= 1em;"></div>
 <div id="status" style="width: 20%; padding-left: 1.5em;"></div>
 </body>
 
@@ -100,12 +100,14 @@ mysqli_close($link);
             productNode = document.createElement('div');
             productNode.setAttribute('class', 'card');
             productNode.innerHTML =
+                '<div class="card_div">' +
                 '<label class="card"><h1 class="card"> ' + product.ItemName + '</h1></label>' +
                 '<img src="images/products/' + product.ImageLink + '.png" alt="' + product.ItemName + ' Picture" style="width:100%">' +
                 '<p class="price">' + JSON.stringify(product.ItemPrice) + '€</p>' +
                 '<p class="card">' + product.ItemDescription + '</p>' +
                 '<label><input type=number min = "1" id = "InputID" value = "1" onKeyDown="return false" class = "inputClass" name="quantity" > kpl</label>' +
-                '<p><button class="card" name="all"> Add to Cart</button></p>';
+                '<p><button class="card" name="all">Add to Cart</button></p>' +
+                '</div> ';
             productsDiv.appendChild(productNode);
         }
         addFunctionalityToButtons()
