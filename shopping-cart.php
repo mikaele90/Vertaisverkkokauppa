@@ -59,7 +59,7 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
 
         var shoppingCartDiv = document.getElementById('shopping_cart_div');
         shoppingCartDiv.innerHTML = '<p>Ostoskori</p>';
-        var shoppingCartHeaders = ['#', 'Quantity', 'Product number', 'Product name', 'Price á', 'Total price'];
+        var shoppingCartHeaders = ['#', 'Quantity', 'Product number', 'Product name', 'Price á', 'Total price', 'Remove from cart'];
         var cartTableNode = document.createElement('table');
         cartTableNode.setAttribute('class', 'shopping_cart_table');
 
@@ -94,6 +94,9 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
             cartTrNode.appendChild(cartTdNode);
             cartTdNode = document.createElement('td');
             cartTdNode.innerHTML = (parseFloat(parsedCartArray[j].Quantity).toFixed(0) * parseFloat(parsedCartArray[j].ItemPrice).toFixed(2)).toFixed(2);
+            cartTrNode.appendChild(cartTdNode);
+            cartTdNode = document.createElement('td');
+            cartTdNode.innerHTML = '<button class="btn btn-secondary" id=remove_button>Remove</button>';
             cartTrNode.appendChild(cartTdNode);
         }
     }

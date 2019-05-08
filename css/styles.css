@@ -34,3 +34,7 @@
     border-color: azure;
     opacity: 0.8
 }
+
+.shopping_cart_table {
+    font: 16px sans-serif;
+}

@@ -1,56 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Vertaisverkkokauppa :: Browse ::</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/x-icon" href="images/color-star-3-152-217610.png">
-    <link rel="stylesheet" href="css/styles.css">
-    <style type="text/css">
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 350px; padding: 20px; align-content: center}
-    </style>
-
+    <?php require_once 'header.php' ?>
 </head>
 <body>
-<?php
-require_once 'database.php';
-require_once 'nav-bar.php';
+    <?php
+    require_once 'database.php';
+    require_once 'nav-bar.php';
 
-$sql="SELECT * FROM itemDB";
-$productArray = Array();
+    $sql="SELECT * FROM itemDB";
+    $productArray = Array();
 
 
-if($stmt = mysqli_prepare($link, $sql)){
+    if($stmt = mysqli_prepare($link, $sql)){
 
-    if(mysqli_stmt_execute($stmt)){
-        /* store result */
-        //mysqli_stmt_store_result($stmt);
+        if(mysqli_stmt_execute($stmt)){
+            /* store result */
+            //mysqli_stmt_store_result($stmt);
 
-        $result = mysqli_stmt_get_result($stmt);
-        $num_rows = mysqli_num_rows($result);
-        $jsonResult = json_encode($result);
+            $result = mysqli_stmt_get_result($stmt);
+            $num_rows = mysqli_num_rows($result);
+            $jsonResult = json_encode($result);
 
-        if($num_rows == 0){
-            echo $browse_value_err = "No results to display.";
-        } else{
-            while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                array_push($productArray, $row);
+            if($num_rows == 0){
+                echo $browse_value_err = "No results to display.";
+            } else{
+                while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                    array_push($productArray, $row);
+                }
+                mysqli_free_result($result);
             }
-            mysqli_free_result($result);
+        } else{
+            echo "Oops! Something went wrong. Please try again later.";
         }
-    } else{
-        echo "Oops! Something went wrong. Please try again later.";
     }
-}
 
-mysqli_close($link);
+    mysqli_close($link);
 
-?>
-<div id="products_div" style="padding: 1.5em; margin= 1em;"></div>
-<div id="status" style="width: 20%; margin-left: 1.5em;"></div>
-
+    ?>
+    <div id="products_div" style="padding: 1.5em; margin= 1em;"></div>
+    <div id="status" style="width: 20%; margin-left: 1.5em;"></div>
 </body>
 
 
@@ -62,6 +51,14 @@ mysqli_close($link);
         for(var i = 0; i < buttons.length; i++) {
 
             buttons[i].onclick = function() {
+
+                /* Vihreä boxi setup */
+                var statusElement = document.getElementById("status")
+                statusElement.innerHTML = '<div class="alert alert-success">Tuote lisätty onnistuneesti!</div>';
+                var styleAttr = document.createAttribute("style");
+                styleAttr.value = "display: none; margin-left: 1.5em;";
+                statusElement.setAttributeNode(styleAttr);
+
                 console.log(buttons.length);
 
                 var shopItem = this.parentElement.parentElement;
@@ -72,13 +69,20 @@ mysqli_close($link);
                 var url = "orderProcess.php";
                 xhr.open("POST", url, true);
 
-
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
                 xhr.onreadystatechange = function() {
                     if(xhr.readyState === 4 && xhr.status === 200) {
                         var return_data = xhr.responseText;
-                        document.getElementById("status").innerHTML = '<div class="alert alert-success">Tuote lisätty onnistuneesti!</div>';
+
+                        /* Vihreä boxi pop-in */
+                        styleAttr.value = "display: inline-block; margin-left: 1.5em;";
+                        function callback(){
+                            return function(){
+                                styleAttr.value = "display: none; margin-left: 1.5em;";
+                            }
+                        }
+                        setTimeout(callback(), 2000);
                     }
                 };
                 xhr.send(variablesToSend); // Request - Send this variable to PHP
@@ -113,6 +117,15 @@ mysqli_close($link);
             productsDiv.appendChild(productNode);
         }
         addFunctionalityToButtons()
+    }
+
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds){
+                break;
+            }
+        }
     }
 
     displayCompleteProductsList();
