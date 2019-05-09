@@ -126,7 +126,7 @@ mysqli_close($link);
     }
 
 
-    if (<?php echo $boolean_ready_to_exec_html_and_js ?> == true) {
+    if (<?php echo $boolean_ready_to_exec_html_and_js ?>) {
         displayCompleteProductsList();
     } else alert("Fatal db error, try again later.");
 

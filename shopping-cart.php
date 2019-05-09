@@ -7,6 +7,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     exit;
 }
 
+$boolean_ready_to_exec_html_and_js = false;
+
 if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
     $sql="SELECT * FROM OrderDB INNER JOIN ItemDB ON OrderDB.ItemId = ItemDB.ItemId WHERE OrderDB.UserId = ? AND OrderDB.IsBought = ?;";
     $shopping_cart_array = Array();
@@ -31,6 +33,7 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
                     array_push($shopping_cart_array, $row);
                 }
                 mysqli_free_result($result);
+                $boolean_ready_to_exec_html_and_js = true;
             }
         } else {
             echo "Oops! Something went wrong. Please try again later.";
@@ -162,7 +165,11 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
         console.log('XHR SENT');
     }
 
-    var cartTotal = displayCartContents();
-    console.log(cartTotal);
+    if (<?php echo $boolean_ready_to_exec_html_and_js ?>) {
+        var cartTotal = displayCartContents();
+        console.log(cartTotal);
+    } else alert("Fatal db error, try again later.");
+
+
 </script>
 </html>
