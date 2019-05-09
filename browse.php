@@ -54,7 +54,7 @@
 
                 /* Vihreä boxi setup */
                 var statusElement = document.getElementById("status");
-                statusElement.innerHTML = '<div class="alert alert-success">Tuote lisätty onnistuneesti!</div>';
+                statusElement.innerHTML = '<div class="alert alert-success">Item added succesfly!</div>';
                 var styleAttr = document.createAttribute("style");
                 styleAttr.value = "display: none; margin-left: 1.5em;";
                 statusElement.setAttributeNode(styleAttr);
