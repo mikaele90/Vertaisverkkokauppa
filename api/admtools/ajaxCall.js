@@ -26,7 +26,7 @@ $(document).ready(function(){
         //item with ajax
         $.ajax({
             type:"POST",
-            url: "/Work folders/OOP php/RESTFUL traversy/php_rest_myblog/api/item/create.php",
+            url: "/Vertaisverkkokauppa/Vertaisverkkokauppa/api/item/create.php",
             data: test,
             ContentType:"application/json",
 
@@ -47,13 +47,15 @@ $(document).ready(function(){
 document.addEventListener('DOMContentLoaded',function(){
     document.getElementById('getMessage').onclick=function(){
 
-        var req;
-        req=new XMLHttpRequest();
-        req.open("GET", '/Work folders/OOP php/RESTFUL traversy/php_rest_myblog/api/item/read.php',true);
-        req.send();
+        var xhr;
+        xhr=new XMLHttpRequest();
+        var url = '/Vertaisverkkokauppa/Vertaisverkkokauppa/api/item/read.php';
+        xhr.open("GET", url,true);
+        xhr.send();
 
-        req.onload=function(){
-            var json=JSON.parse(req.responseText);
+        xhr.onload=function(){
+            var json=JSON.parse(xhr.responseText);
+            console.log(JSON.stringify(json));
 
             //limit data called
             var son = json.filter(function(val) {
@@ -66,11 +68,11 @@ document.addEventListener('DOMContentLoaded',function(){
             son.forEach(function(val) {
                 var keys = Object.keys(val);
 
-                html += "<div class = 'cat'>";
+                html += '<div class="cat">';
                 keys.forEach(function(key) {
-                    html += "<strong>" + key + "</strong>: " + val[key] + "<br>";
+                    html += '<strong>' + key + '</strong>: ' + val[key] + '<br>';
                 });
-                html += "</div><br>";
+                html += '</div><br>';
             });
 
             //append in message class
