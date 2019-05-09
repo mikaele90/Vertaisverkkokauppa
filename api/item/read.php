@@ -21,7 +21,7 @@ $num_rows = $results->rowCount();
 // Check if any items
 if($num_rows > 0) {
     // Item array
-    $items_array = Array();
+    //$items_array = Array();
     $items_array['data'] = Array();
 
     while($row = $results->fetch(PDO::FETCH_ASSOC)) {
@@ -39,7 +39,7 @@ if($num_rows > 0) {
         );
 
         // Push to "data"
-        array_push($items_array, $post_item);
+        //array_push($items_array, $post_item);
         array_push($items_array['data'], $post_item);
     }
 

@@ -11,7 +11,7 @@ require_once 'nav-bar.php';
 $sql = "SELECT * FROM ItemDB";
 $productArray = Array();
 
-$boolean_ready_to_exec_html_and_js = false;
+$boolean_ready_to_exec_html_and_js = true;
 
 if ($stmt = mysqli_prepare($link, $sql)) {
 
@@ -124,15 +124,6 @@ mysqli_close($link);
         }
         addFunctionalityToButtons()
     }
-
-
-    if (<?php echo $boolean_ready_to_exec_html_and_js ?> == true) {
-        displayCompleteProductsList();
-    } else alert("Fatal db error, try again later.");
-
-
-
-
 
 </script>
 </html>
