@@ -1,9 +1,7 @@
 <?php
 session_start();
 
-
-echo 'Thank you ' . $_POST['title'] . ' ' . $_POST['quantity'] . ', says the PHP file';
-
+//echo 'Thank you ' . $_POST['title'] . ' ' . $_POST['quantity'] . ', says the PHP file';
 
 // Check if the user is logged in, if not then redirect to login page
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
@@ -94,7 +92,6 @@ if ($readyToExecNextQuery == true) {
 
     }
     mysqli_stmt_close($stmt1);
-
 
 }
 

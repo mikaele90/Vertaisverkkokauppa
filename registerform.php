@@ -212,7 +212,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up</title>
+    <title>Register</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
@@ -220,7 +220,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         body {
             font: 14px sans-serif;
         }
-
         .wrapper {
             width: 350px;
             padding: 20px;
@@ -230,7 +229,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 
-<?php require_once 'nav-bar.php' ?>
+<?php require_once "nav-bar.html" ?>
 
 <div class="wrapper">
     <h2>Sign Up</h2>
