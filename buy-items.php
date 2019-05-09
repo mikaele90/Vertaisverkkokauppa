@@ -17,6 +17,7 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
     }
     echo $cart_total;
 
+        //voiko user id mennä negatiiviseksi nyt
     $sql = "UPDATE UserDB SET Credits = ? - ? WHERE UserId = ?";
     $sql2 = "UPDATE OrderDB SET IsBought = ? WHERE OrderDB.UserId = ?";
 
