@@ -1,7 +1,7 @@
 //POST REQUEST - NOT FUNCTIONAL (YET)
 
 $(document).ready(function(){
-    $('#postMessage').click(function(e){
+    $('#postItem').click(function(e){
         e.preventDefault();
 
         //serialize form data
@@ -15,7 +15,10 @@ $(document).ready(function(){
             for (var i = 0; i < hashes.length; i++) {
                 hash = hashes[i].split('=');
                 myJson[hash[0]] = hash[1];
+                console.log(myJson)
             }
+            console.log(myJson);
+            console.log(JSON.stringify(myJson));
             return JSON.stringify(myJson);
         }
 
@@ -44,7 +47,7 @@ $(document).ready(function(){
 //GET REQUEST - FUNCTIONAL
 
 document.addEventListener('DOMContentLoaded',function(){
-    document.getElementById('getMessage').onclick=function(){
+    document.getElementById('getItems').onclick=function(){
 
         var xhr;
         xhr = new XMLHttpRequest();
@@ -55,13 +58,7 @@ document.addEventListener('DOMContentLoaded',function(){
         xhr.onload=function(){
             var parsedJson = JSON.parse(xhr.responseText);
             console.log(parsedJson);
-            console.log(parsedJson[1]);
             console.log(JSON.stringify(parsedJson));
-
-            //limit data called
-            var son = parsedJson.filter(function(val) {
-                return (val >= 4);
-            });
 
             var html = "";
 
@@ -69,7 +66,6 @@ document.addEventListener('DOMContentLoaded',function(){
                 html += 'ItemId ' + parsedJson[i]['itemid'] + ': ' + JSON.stringify(parsedJson[i]) + '<br>';
             }
 
-            //append in message class
             document.getElementsByClassName('message')[0].innerHTML=html;
         };
     };

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>POST & GET</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js" type="text/javascript"></script>
     <script src="ajax.js"></script>
 
@@ -38,22 +38,22 @@
 <body>
 
 <div style="float:right; width:75%;">
-    <h1>Data Finder</h1>
-    <p class="message box"> The message will go here </p>
-    <p><button id="getMessage"> Get Message </button></p>
+    <h1>Item Getter</h1>
+    <p class="message box">GET REQUEST HERE</p>
+    <p><button id="getItems"> Make GET Request </button></p>
 </div>
 
 
 <div style="float:left; width:25%;">
-    <h1>Data Sender</h1>
+    <h1>Item Adder</h1>
     <form id="apiform">
 
-        <input type="text" name="title" placeholder="item name" autocomplete="on" ><br>
-        <textarea name="body" id="" cols="30" rows="10" placeholder="item description" autocomplete="on" ></textarea><br>
-        <input type="text" name="author" placeholder="item price" autocomplete="on" ><br>
-        <input type="text" name="category_id" placeholder="category name" autocomplete="on" ><br><br>
+        <label>Item name: <input type="text" name="itemname" placeholder="Item name here" autocomplete="on" ></label><br>
+        <label>Item description:<br><textarea name="itemdescription" id="" cols="28" rows="5" placeholder="Item description here" autocomplete="on" ></textarea></label><br>
+        <label>Item price: <input type="text" name="itemprice" placeholder="Item price here" autocomplete="on" ><br></label>
+        <label>Item category: <input type="text" name="itemcategory" placeholder="Category name here" autocomplete="on" ><br><br></label>
 
-        <button id="postMessage"> Post Message </button>
+        <button id="postItem"> Add New Item </button>
     </form>
 </div>
 
