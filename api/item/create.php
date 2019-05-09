@@ -8,29 +8,29 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 include_once '../db/Database.php';
 include_once '../models/Item.php';
 
-// Instantiate DB & connect
+// DB & connect
 $database = new Database();
 $db = $database->connect();
 
-// Instantiate blog post object
-$post = new Post($db);
+// Item object
+$item = new Item($db);
 
 // Get raw posted data
 $data = json_decode(file_get_contents("php://input"));
 
-$post->title = $data->title;
-$post->body = $data->body;
-$post->author = $data->author;
-$post->category_id = $data->category_id;
+$item->item_name = $data->itemname;
+$item->item_description = $data->itemdescription;
+$item->item_price = $data->itemprice;
+$item->item_category_name = $data->itemcategoryname;
 
-// Create post
-if($post->create()) {
+// Create item
+if($item->create()) {
     echo json_encode(
-        array('message' => 'Post Created')
+        Array('message' => 'Item Created')
     );
 } else {
     echo json_encode(
-        array('message' => 'Post Not Created')
+        Array('message' => 'Item Not Created')
     );
 }
 

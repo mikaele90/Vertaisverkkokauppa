@@ -1,4 +1,3 @@
-
 //POST REQUEST
 
 $(document).ready(function(){
@@ -48,32 +47,27 @@ document.addEventListener('DOMContentLoaded',function(){
     document.getElementById('getMessage').onclick=function(){
 
         var xhr;
-        xhr=new XMLHttpRequest();
+        xhr = new XMLHttpRequest();
         var url = '/Vertaisverkkokauppa/Vertaisverkkokauppa/api/item/read.php';
         xhr.open("GET", url,true);
         xhr.send();
 
         xhr.onload=function(){
-            var json=JSON.parse(xhr.responseText);
-            console.log(JSON.stringify(json));
+            var parsedJson = JSON.parse(xhr.responseText);
+            console.log(parsedJson);
+            console.log(parsedJson[1]);
+            console.log(JSON.stringify(parsedJson));
 
             //limit data called
-            var son = json.filter(function(val) {
-                return (val.id >= 4);
+            var son = parsedJson.filter(function(val) {
+                return (val >= 4);
             });
 
             var html = "";
 
-            //loop and display data
-            son.forEach(function(val) {
-                var keys = Object.keys(val);
-
-                html += '<div class="cat">';
-                keys.forEach(function(key) {
-                    html += '<strong>' + key + '</strong>: ' + val[key] + '<br>';
-                });
-                html += '</div><br>';
-            });
+            for (var i = 0; i < parsedJson.length; i++) {
+                html += JSON.stringify(parsedJson[i]) + '<br>';
+            }
 
             //append in message class
             document.getElementsByClassName('message')[0].innerHTML=html;

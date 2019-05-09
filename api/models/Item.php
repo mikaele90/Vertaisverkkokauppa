@@ -86,5 +86,35 @@ class Item {
         $this->item_availability = $row['availability'];
     }
 
+    // Create Item
+    public function create() {
+        // Create query
+        $query = 'INSERT INTO ' . $this->table . ' SET itemname = :itemname, itemdescription = :itemdescription, itemprice = :itemprice, itemcategory = :itemcategory';
+
+        // Prepare statement
+        $stmt = $this->dblink->prepare($query);
+
+        // Clean data
+        $this->item_name = htmlspecialchars(strip_tags($this->item_name));
+        $this->item_description = htmlspecialchars(strip_tags($this->item_description));
+        $this->item_price = htmlspecialchars(strip_tags($this->item_price));
+        $this->item_category_name = htmlspecialchars(strip_tags($this->item_category_name));
+
+        // Bind data
+        $stmt->bindParam(':itemname', $this->item_name);
+        $stmt->bindParam(':itemdescription', $this-$this->item_description);
+        $stmt->bindParam(':itemprice', $this->item_price);
+        $stmt->bindParam(':itemcategory', $this->item_category_name);
+
+        // Execute query
+        if($stmt->execute()) {
+            return true;
+        }
+
+        // Error print
+        printf("Error: %s.\n", $stmt->error);
+
+        return false;
+    }
 
 }
