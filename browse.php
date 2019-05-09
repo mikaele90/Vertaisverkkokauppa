@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <?php require_once 'header.php' ?>
-</head>
-<body>
 <?php
 require_once 'database.php';
-require_once 'nav-bar.php';
 
 $sql = "SELECT * FROM ItemDB";
 $productArray = Array();
@@ -41,6 +34,16 @@ mysqli_stmt_close($stmt);
 mysqli_close($link);
 
 ?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <?php require_once 'header.php' ?>
+</head>
+<body>
+<?php require_once "nav-bar.php" ?>;
+
 <div id="products_div" style="padding: 1.5em; margin= 1em;"></div>
 <div id="status" style="width: 20%; margin-left: 1.5em;"></div>
 </body>
@@ -129,9 +132,6 @@ mysqli_close($link);
     if (<?php echo $boolean_ready_to_exec_html_and_js ?>) {
         displayCompleteProductsList();
     } else alert("Fatal db error, try again later.");
-
-
-
 
 
 </script>
