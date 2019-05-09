@@ -13,15 +13,15 @@ $db = $database->connect();
 $category = new ItemCategory($db);
 
 // Get ID
-$category->id = isset($_GET['id']) ? $_GET['id'] : die();
+$category->item_id = isset($_GET['id']) ? $_GET['id'] : die();
 
 // Get item
 $category->read_single();
 
 // Create array
 $category_arr = array(
-    'id' => $category->id,
-    'name' => $category->name
+    'id' => $category->item_id,
+    'name' => $category->item_category_name
 );
 
 // Make JSON

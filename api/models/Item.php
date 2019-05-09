@@ -61,7 +61,8 @@ class Item {
         FROM 
             ' . $this->table . ' i 
         WHERE 
-            ItemId = ?';
+            ItemId = ?
+        LIMIT 0,1';
 
         // Prepare statement
         $stmt = $this->dblink->prepare($query);

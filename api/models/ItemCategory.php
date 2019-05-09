@@ -1,33 +1,36 @@
 <?php
 class ItemCategory {
     // DB Stuff
-    private $conn;
-    private $table = 'categories';
+    private $dblink;
+    private $table = 'ItemDB';
 
     // Properties
-    public $id;
-    public $name;
-    public $created_at;
+    public $item_id;
+    public $item_name;
+    public $item_category_name;
+    public $item_subcategory_name;
 
     // Constructor with DB
-    public function __construct($db) {
-        $this->conn = $db;
+    public function __construct($database) {
+        $this->dblink = $database;
     }
 
     // Get categories
     public function read() {
         // Create query
-        $query = 'SELECT
-        id,
-        name,
-        created_at
-      FROM
-        ' . $this->table . '
-      ORDER BY
-        created_at DESC';
+        $query = 'SELECT 
+            itemid AS item_id,
+            itemname AS item_name,
+            itemcategory AS item_category_name,
+            itemsubcategory AS item_subcategory_name 
+        FROM 
+            ' . $this->table . ' 
+        ORDER BY 
+            itemcategory 
+        ASC';
 
         // Prepare statement
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->dblink->prepare($query);
 
         // Execute query
         $stmt->execute();
@@ -36,22 +39,23 @@ class ItemCategory {
     }
 
     // Get Single ItemCategory
-    public function read_single()
+    public function read_one()
     {
         // Create query
         $query = 'SELECT
-          id,
-          name
+          i.itemid,
+          i.itemname
         FROM
-          ' . $this->table . '
-      WHERE id = ?
-      LIMIT 0,1';
+          ' . $this->table . ' i
+        WHERE 
+            i.itemcategory = ?
+        LIMIT 0,1';
 
         //Prepare statement
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->dblink->prepare($query);
 
         // Bind ID
-        $stmt->bindParam(1, $this->id);
+        $stmt->bindParam(1, $this->item_id);
 
         // Execute query
         $stmt->execute();
@@ -59,7 +63,7 @@ class ItemCategory {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // set properties
-        $this->id = $row['id'];
-        $this->name = $row['name'];
+        $this->item_id = $row['itemid'];
+        $this->item_name = $row['itemname'];
     }
 }
