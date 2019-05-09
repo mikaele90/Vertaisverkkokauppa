@@ -1,4 +1,4 @@
-//POST REQUEST
+//POST REQUEST - NOT FUNCTIONAL (YET)
 
 $(document).ready(function(){
     $('#postMessage').click(function(e){
@@ -30,10 +30,10 @@ $(document).ready(function(){
             ContentType:"application/json",
 
             success:function(){
-                alert('successfully posted');
+                alert('Success: Successfully added');
             },
             error:function(){
-                alert('Could not be posted');
+                alert('Error: Could not be added');
             }
 
         });
@@ -41,7 +41,7 @@ $(document).ready(function(){
 });
 
 
-//GET REQUEST
+//GET REQUEST - FUNCTIONAL
 
 document.addEventListener('DOMContentLoaded',function(){
     document.getElementById('getMessage').onclick=function(){
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded',function(){
             var html = "";
 
             for (var i = 0; i < parsedJson.length; i++) {
-                html += JSON.stringify(parsedJson[i]) + '<br>';
+                html += 'ItemId ' + parsedJson[i]['itemid'] + ': ' + JSON.stringify(parsedJson[i]) + '<br>';
             }
 
             //append in message class

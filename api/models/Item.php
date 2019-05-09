@@ -90,7 +90,6 @@ class Item {
     public function create() {
         // Create query
         $query = 'INSERT INTO ' . $this->table . ' SET itemname = :itemname, itemdescription = :itemdescription, itemprice = :itemprice, itemcategory = :itemcategory';
-
         // Prepare statement
         $stmt = $this->dblink->prepare($query);
 
@@ -102,7 +101,7 @@ class Item {
 
         // Bind data
         $stmt->bindParam(':itemname', $this->item_name);
-        $stmt->bindParam(':itemdescription', $this-$this->item_description);
+        $stmt->bindParam(':itemdescription', $this->item_description);
         $stmt->bindParam(':itemprice', $this->item_price);
         $stmt->bindParam(':itemcategory', $this->item_category_name);
 

@@ -21,16 +21,12 @@ $data = json_decode(file_get_contents("php://input"));
 $item->item_name = $data->itemname;
 $item->item_description = $data->itemdescription;
 $item->item_price = $data->itemprice;
-$item->item_category_name = $data->itemcategoryname;
+$item->item_category_name = $data->itemcategory;
 
 // Create item
 if($item->create()) {
-    echo json_encode(
-        Array('message' => 'Item Created')
-    );
+    echo json_encode(Array('message' => 'Item Created'));
 } else {
-    echo json_encode(
-        Array('message' => 'Item Not Created')
-    );
+    echo json_encode(Array('message' => 'Item Not Created'));
 }
 
