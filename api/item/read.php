@@ -21,13 +21,13 @@ $num_rows = $results->rowCount();
 // Check if any items
 if($num_rows > 0) {
     // Item array
-    //$items_array = Array();
-    $items_array['data'] = Array();
+    $items_array = Array();
+    //$items_array['contents'] = Array();
 
     while($row = $results->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
 
-        $post_item = Array(
+        $single_item = Array(
             'itemid' => $item_id,
             'itemname' => $item_name,
             'itemcategory' => $item_category_name,
@@ -38,9 +38,9 @@ if($num_rows > 0) {
             'availability' => $item_availability
         );
 
-        // Push to "data"
-        //array_push($items_array, $post_item);
-        array_push($items_array['data'], $post_item);
+        // Push
+        array_push($items_array, $single_item);
+        //array_push($items_array['contents'], $single_item);
     }
 
     // JSON & output

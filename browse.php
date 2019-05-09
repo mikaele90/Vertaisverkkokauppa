@@ -125,6 +125,10 @@ mysqli_close($link);
         addFunctionalityToButtons()
     }
 
+    if (<?php echo $boolean_ready_to_exec_html_and_js ?>) {
+        displayCompleteProductsList();
+    } else alert("Fatal db error, try again later.");
+
 </script>
 </html>
 

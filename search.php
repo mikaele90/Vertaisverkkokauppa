@@ -5,6 +5,7 @@ require_once "nav-bar.php";
 $search_value = "";
 $search_value_err = "";
 
+$boolean_ready_to_exec_html_and_js = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "SELECT * FROM ItemDB WHERE ItemName LIKE ? ";
@@ -31,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     array_push($searchArray, $row);
                 }
                 mysqli_free_result($result);
+                $boolean_ready_to_exec_html_and_js = true;
             }
         } else {
             //pitäsköhän täs olla näi muute dispayCompleteProductsList kusee
@@ -133,6 +135,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         addFunctionalityToButtons()
     }
 
-    displayCompleteProductsList();
+    if (<?php echo $boolean_ready_to_exec_html_and_js ?>) {
+        displayCompleteProductsList();
+    } else alert("Fatal db error, try again later.");
+
 </script>
 </html>

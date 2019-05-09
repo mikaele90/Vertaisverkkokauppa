@@ -22,7 +22,20 @@ class Item {
     // Get Posts
     public function read() {
         // Create query
-        $query = 'SELECT * FROM ' . $this->table . ' ORDER BY ItemId ASC';
+        $query = 'SELECT 
+            i.itemid AS item_id,
+            i.itemname AS item_name,
+            i.itemcategory AS item_category_name,
+            i.itemsubcategory AS item_subcategory_name,
+            i.itemprice AS item_price,
+            i.itemdescription AS item_description,
+            i.imagelink AS item_imagelink,
+            i.availability AS item_availability
+        FROM 
+            ' . $this->table . ' i 
+        ORDER BY 
+            ItemId 
+        ASC';
 
         // Prepare statement
         $stmt = $this->dblink->prepare($query);
@@ -34,9 +47,21 @@ class Item {
     }
 
     // Get Single Item
-    public function read_single() {
+    public function read_one() {
         // Create query
-        $query = 'SELECT * FROM ' . $this->table . ' WHERE ItemId = ? LIMIT 0,1';
+        $query = 'SELECT 
+            i.itemid, 
+            i.itemname, 
+            i.itemcategory, 
+            i.itemsubcategory, 
+            i.itemprice, 
+            i.itemdescription, 
+            i.imagelink, 
+            i.availability 
+        FROM 
+            ' . $this->table . ' i 
+        WHERE 
+            ItemId = ?';
 
         // Prepare statement
         $stmt = $this->dblink->prepare($query);

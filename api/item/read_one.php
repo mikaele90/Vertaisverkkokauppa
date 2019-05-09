@@ -3,31 +3,33 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
-include_once '../../config/Database.php';
-include_once '../../models/Item.php';
+include_once '../db/Database.php';
+include_once '../models/Item.php';
 
 // Instantiate DB & connect
 $database = new Database();
 $db = $database->connect();
 
 // Instantiate blog item object
-$post = new Item($db);
+$item = new Item($db);
 
 // Get ID
-$post->item_id = isset($_GET['id']) ? $_GET['id'] : die();
+$item->item_id = isset($_GET['itemid']) ? $_GET['itemid'] : die();
 
 // Get item
-$post->read_single();
+$item->read_one();
 
 // Create array
-$post_arr = array(
-    'id' => $post->item_id,
-    'title' => $post->item_subcategory_name,
-    'body' => $post->item_price,
-    'author' => $post->item_description,
-    'category_id' => $post->item_name,
-    'category_name' => $post->item_category_name
+$item_array = array(
+    'itemid' => $item->item_id,
+    'itemname' => $item->item_name,
+    'itemcategory' => $item->item_category_name,
+    'itemsubcategory' => $item->item_subcategory_name,
+    'itemprice' => $item->item_price,
+    'itemdescription' => $item->item_description,
+    'imagelink' => $item->item_imagelink,
+    'availability' => $item->item_availability
 );
 
 // Make JSON
-print_r(json_encode($post_arr));
+print_r(json_encode($item_array));
