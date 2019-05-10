@@ -4,8 +4,6 @@ require_once 'database.php';
 $sql = "SELECT * FROM ItemDB";
 $productArray = Array();
 
-$boolean_ready_to_exec_html_and_js = true;
-
 if ($stmt = mysqli_prepare($link, $sql)) {
 
     if (mysqli_stmt_execute($stmt)) {
@@ -22,7 +20,6 @@ if ($stmt = mysqli_prepare($link, $sql)) {
             while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                 array_push($productArray, $row);
             }
-            $boolean_ready_to_exec_html_and_js = true;
             mysqli_free_result($result);
         }
     } else {
@@ -49,7 +46,6 @@ mysqli_close($link);
 
 
 <script>
-
     function addFunctionalityToButtons() {
         var buttons = document.getElementsByName("all");
 
@@ -59,7 +55,7 @@ mysqli_close($link);
 
                 /* Vihreä boxi setup */
                 var statusElement = document.getElementById("status");
-                statusElement.innerHTML = '<div class="alert alert-success">Item added succesfly!</div>';
+                statusElement.innerHTML = '<div class="alert alert-success">Item added successfully!</div>';
                 var styleAttr = document.createAttribute("style");
                 styleAttr.value = "display: none; margin-left: 1.5em;";
                 statusElement.setAttributeNode(styleAttr);
@@ -118,7 +114,7 @@ mysqli_close($link);
                 '<img src="images/products/' + product.ImageLink + '.png" alt="' + product.ItemName + ' Picture" style="width:100%">' +
                 '<p class="price">' + JSON.stringify(product.ItemPrice) + '€</p>' +
                 '<p class="card">' + product.ItemDescription + '</p>' +
-                '<label><input type=number min = "1" id = "InputID" value = "1" onKeyDown="return false" class = "inputClass" name="quantity" > kpl</label>' +
+                '<label><input type=number min="1" id="InputID" value="1" onKeyDown="return false" class="inputClass" name="quantity" > kpl</label>' +
                 '<p><button class="card" name="all">Add to Cart</button></p>' +
                 '</div>';
 
@@ -127,9 +123,7 @@ mysqli_close($link);
         addFunctionalityToButtons()
     }
 
-    if (<?php echo $boolean_ready_to_exec_html_and_js ?>) {
-        displayCompleteProductsList();
-    } else alert("Fatal db error, try again later.");
+    displayCompleteProductsList();
 
 </script>
 </html>

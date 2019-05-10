@@ -7,8 +7,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     exit;
 }
 
-$boolean_ready_to_exec_html_and_js = false;
-
 if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
     $sql="SELECT * FROM OrderDB INNER JOIN ItemDB ON OrderDB.ItemId = ItemDB.ItemId WHERE OrderDB.UserId = ? AND OrderDB.IsBought = ?;";
     $shopping_cart_array = Array();
@@ -33,7 +31,6 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
                     array_push($shopping_cart_array, $row);
                 }
                 mysqli_free_result($result);
-                $boolean_ready_to_exec_html_and_js = true;
             }
         } else {
             echo "Oops! Something went wrong. Please try again later.";
@@ -47,10 +44,10 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php require_once 'header.php' ?>
+    <?php require_once 'header.html' ?>
 </head>
 <body>
-    <?php require_once 'nav-bar.php'; ?>
+    <?php require_once 'nav-bar.html'; ?>
     <div id="shopping_cart_div"></div>
     <hr/>
     <div id="buy_button_div"><button id="buy_button" class="btn btn-success" onclick="buyItems()">Osta tuotteet</button></div>
@@ -165,10 +162,8 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
         console.log('XHR SENT');
     }
 
-    if (<?php echo $boolean_ready_to_exec_html_and_js ?>) {
-        var cartTotal = displayCartContents();
-        console.log(cartTotal);
-    } else alert("Fatal db error, try again later.");
+    var cartTotal = displayCartContents();
+    console.log(cartTotal);
 
 
 </script>

@@ -15,7 +15,6 @@ $user_id = $_SESSION["id"];
 $readyToExecNextQuery = false;
 
 require_once 'database.php';
-require_once 'nav-bar.php';
 
 //MUISTA USERILLA PITÄÄ OLLA RAHAT!!!! ELI OTA HUOMIOON
 
