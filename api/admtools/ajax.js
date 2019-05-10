@@ -28,7 +28,7 @@ $(document).ready(function(){
         //item with ajax
         $.ajax({
             type:"POST",
-            url: "/Vertaisverkkokauppa/Vertaisverkkokauppa/api/item/create.php",
+            url: "/Web-projekti/Vertaisverkkokauppa/api/item/create.php",
             data: test,
             ContentType:"application/json",
 
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
         var xhr;
         xhr = new XMLHttpRequest();
-        var url = '/Vertaisverkkokauppa/Vertaisverkkokauppa/api/item/read.php';
+        var url = '/Web-projekti/Vertaisverkkokauppa/api/item/read.php';
         xhr.open("GET", url,true);
         xhr.send();
 

@@ -62,7 +62,7 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
         var cartTotal = 0;
 
         var shoppingCartDiv = document.getElementById('shopping_cart_div');
-        shoppingCartDiv.innerHTML = '<h2>Ostoskori</h2>';
+        shoppingCartDiv.innerHTML = '<h2>Shopping cart</h2>';
         if (parsedCartArray.length === 0) {
             shoppingCartDiv.innerHTML =
                 '<h2>Shopping cart</h2>' +
@@ -146,7 +146,7 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
                     var shoppingCartDiv = document.getElementById('shopping_cart_div');
                     shoppingCartDiv.innerHTML =
                         '<h2>Ostoskori</h2>' +
-                        '<br><p>Massit loppu!</p>';
+                        '<br><p>Account balance too low!</p>';
                     document.getElementById('buy_button').setAttribute('class','btn btn-success disabled');
                     document.getElementById('buy_button').setAttribute('onclick','');
                     return 0;
