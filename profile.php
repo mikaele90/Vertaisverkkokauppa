@@ -42,6 +42,7 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
 <html lang="en">
 <head>
     <?php require_once 'header.html' ?>
+    <title>Profile Page</title>
 </head>
 <body>
 

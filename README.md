@@ -11,3 +11,4 @@ Muuta:
 - REST API readme löytyy api-kansiosta
 
 By: Patrik Heinonen & Mikael Elgström
+Ryhmä 10

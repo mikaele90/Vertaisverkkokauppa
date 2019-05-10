@@ -37,6 +37,7 @@ mysqli_close($link);
 <html lang="en">
 <head>
     <?php require_once 'header.html' ?>
+    <title>Browse Products</title>
 </head>
 <body>
 <?php require_once "nav-bar.html" ?>
@@ -112,7 +113,7 @@ mysqli_close($link);
                 '<div class="card_div">' +
                 '<label class="card"><h1 class="card"> ' + product.ItemName + '</h1></label>' +
                 '<img src="images/products/' + product.ImageLink + '.png" alt="' + product.ItemName + ' Picture" style="width:100%">' +
-                '<p class="price">' + JSON.stringify(product.ItemPrice) + '€</p>' +
+                '<p class="price">' + product.ItemPrice.toFixed(2) + '€</p>' +
                 '<p class="card">' + product.ItemDescription + '</p>' +
                 '<label><input type=number min="1" id="InputID" value="1" onKeyDown="return false" class="inputClass" name="quantity" > kpl</label>' +
                 '<p><button class="card" name="all">Add to Cart</button></p>' +

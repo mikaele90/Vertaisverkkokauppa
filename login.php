@@ -95,6 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 <head>
     <?php require_once "header.html" ?>
+    <title>Login Page</title>
 </head>
 <body>
 
