@@ -6,10 +6,7 @@
 <body>
 
 <?php require_once "nav-bar.html" ?>
-
-<div>
-
-</div>
-
+<h1>Welcome!</h1>
+<div></div>
 </body>
 </html>

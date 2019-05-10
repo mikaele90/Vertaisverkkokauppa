@@ -50,7 +50,7 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
     <?php require_once 'nav-bar.html'; ?>
     <div id="shopping_cart_div"></div>
     <hr/>
-    <div id="buy_button_div"><button id="buy_button" class="btn btn-success" onclick="buyItems()">Osta tuotteet</button></div>
+    <div id="buy_button_div"><button id="buy_button" class="btn btn-success" onclick="buyItems()">Buy Items!</button></div>
 </body>
 <script type="text/javascript">
     function displayCartContents() {
@@ -65,8 +65,8 @@ if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
         shoppingCartDiv.innerHTML = '<h2>Ostoskori</h2>';
         if (parsedCartArray.length === 0) {
             shoppingCartDiv.innerHTML =
-                '<h2>Ostoskori</h2>' +
-                '<br><p>Ostoskori on tyhjä</p>';
+                '<h2>Shopping cart</h2>' +
+                '<br><p>Shopping cart is empty.</p>';
             document.getElementById('buy_button').setAttribute('class','btn btn-success disabled');
             document.getElementById('buy_button').setAttribute('onclick','');
             return 0;

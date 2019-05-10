@@ -77,11 +77,10 @@ if ($readyToExecNextQuery == true) {
                 if (mysqli_stmt_fetch($stmt1)) {
 
                     $user_credits = $Credits;
-
-                    if ((floatval($final_item_price) * floatval($item_quantity)) <= $user_credits) {
-                        $readyToExecNextQuery2 = true;
-
-                    }
+                    //kommentoitu ulos kun esti käyttäjää lisäämästä ostoskoriin uusia tuotteita, jotka liian kalliita
+                    //if ((floatval($final_item_price) * floatval($item_quantity)) <= $user_credits) {
+                    $readyToExecNextQuery2 = true;
+                    //}
 
                 }
                 // lisää elset
@@ -112,7 +111,6 @@ if ($readyToExecNextQuery2 == true) {
         }
     }
     mysqli_stmt_close($stmt2);
-
 
 }
 
