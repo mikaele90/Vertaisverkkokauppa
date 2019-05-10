@@ -9,3 +9,5 @@ Semitärkeät puuttuvat ominaisuudet:
 Muuta:
 
 - REST API readme löytyy api-kansiosta
+
+By: Patrik Heinonen & Mikael Elgström
